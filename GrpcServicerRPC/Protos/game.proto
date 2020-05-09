@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerRPS";
+
+service Game {
+
+	rpc Play (PlayLookupModel) returns (PlayModel);
+
+	rpc Stats (StatsLookupModel) returns (StatsModel);
+
+}
+
+message PlayLookupModel {
+	
+	int32 userId = 1;
+	int32 play = 2;
+
+}
+
+message StatsLookupModel {
+	
+	int32 userId = 1;
+	
+}
+
+message PlayModel {
+	
+	int32 result = 1; // 0: Empate; 1: Utilizador ganhou; 2: Servidor ganhou;
+	string serverPlay = 2;
+
+}
+
+message StatsModel {
+	
+	int32 gamesPlayed = 1;
+	int32 wins = 2;
+	int32 draws = 3;
+	int32 losts = 4;
+
+}

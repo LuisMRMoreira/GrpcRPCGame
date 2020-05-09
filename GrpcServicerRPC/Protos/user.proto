@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerRPS";
+
+service User {
+
+	rpc Login (UserLoginLookupModel) returns (UserLoginModel);
+
+	rpc Regist (UserRegistLookupModel) returns (UserRegistModel);
+
+}
+
+message UserLoginLookupModel {
+	
+	string username = 1;
+	string password = 2;
+
+}
+
+message UserRegistLookupModel {
+	
+	string username = 1;
+	string email = 2;
+	string password = 3;
+
+}
+
+message UserLoginModel {
+	
+	bool valid = 1;
+	int32 wihchInvalid = 2; // 0: todos validos (deve estar em concordância com o valid); 1: username; 2: password; 3: ambos.
+	int32 userId = 3;
+}
+
+message UserRegistModel {
+	
+	bool valid = 1;
+	int32 wihchInvalid = 2; // 0: todos validos (deve estar em concordância com o valid); 1: username; 2: email; 3: username & email
+
+}
