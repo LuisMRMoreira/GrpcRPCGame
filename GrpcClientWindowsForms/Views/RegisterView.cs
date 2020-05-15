@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace GrpcClientWindowsForms.Views
 {
-    public partial class Form1 : Form
+    public partial class RegisterView : Form
     {
-        public Form1()
+        public RegisterView()
         {
             InitializeComponent();
         }

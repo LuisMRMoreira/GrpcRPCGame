@@ -140,11 +140,14 @@ namespace GrpcServerRPS.Services
             {
                 _context.Database.EnsureCreated();
 
-                h.Games = 0;
-                h.win = 0;
-                h.lost = 0;
-                h.draw = 0;
-                h.userId = request.UserId;
+                h = new History
+                {
+                    Games = 0,
+                    win = 0,
+                    lost = 0,
+                    draw = 0,
+                    userId = request.UserId
+                };
 
                 _context.History.Add(h);
                 _context.SaveChanges();

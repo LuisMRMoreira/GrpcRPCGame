@@ -75,10 +75,12 @@ namespace GrpcServerRPS.Services
             }
             else
             {
-                Models.User u = new Models.User();
-                u.Username = request.Username;
-                u.Email = request.Email;
-                u.Password = request.Password;
+                Models.User u = new Models.User
+                {
+                    Username = request.Username,
+                    Email = request.Email,
+                    Password = request.Password
+                };
 
                 // verifica e garante que a BD existe
                 _context.Database.EnsureCreated();

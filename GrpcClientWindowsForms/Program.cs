@@ -13,11 +13,12 @@ namespace GrpcClientWindowsForms
 {
     static class Program
     {
-        // Channel e Client usados para autenticação
-        public static GrpcChannel AuthChannel { get; private set; }
-        public static User.UserClient AuthClient { get; private set; }
-
+        // Endereço do servidor a qual é feita a conexão
+        public static string ServerAddress { get; private set; }
+        public static AuthView AuthView { get; private set; }
         public static PlayView PlayView { get; private set; }
+        public static RegisterView RegisterView { get; private set; }
+        public static AuthController AuthController { get; private set; }
         public static PlayController PlayController { get; private set; }
 
         [STAThread]
@@ -27,10 +28,20 @@ namespace GrpcClientWindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            AuthView = new AuthView();
             PlayView = new PlayView();
+            RegisterView = new RegisterView();
+
+            AuthController = new AuthController();
             PlayController = new PlayController();
 
-            Application.Run(PlayView);
+            Application.Run(AuthView);
+        }
+
+        // Método para atribuir um valor ao field ServerAddress, que é usado para iniciar os channels das conexões GRPC
+        public static void SetServerAddress(string ipAddress)
+        {
+            ServerAddress = "https://" + ipAddress + ":5001";
         }
     }
 }
