@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using GrpcServerRPS.Data;
+using GrpcServerRPS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -26,7 +27,7 @@ namespace GrpcServerRPS.Services
             int serverPlay = rnd.Next(1, 4);
 
             PlayModel output = new PlayModel();
-            Models.History h;
+            History h;
             h = _context.History.Include(i => i.User).FirstOrDefault(u => u.userId == request.UserId);
             if (h == null) // No caso do utilizador nunca ter jogado
             {

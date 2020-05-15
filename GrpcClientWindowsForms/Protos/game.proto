@@ -7,6 +7,7 @@ service Game {
 	rpc Play (PlayLookupModel) returns (PlayModel);
 
 	rpc Stats (StatsLookupModel) returns (StatsModel);
+
 }
 
 message PlayLookupModel {
