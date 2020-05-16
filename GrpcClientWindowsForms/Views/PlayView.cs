@@ -35,7 +35,7 @@ namespace GrpcClientWindowsForms.Views
             PlayRequest?.Invoke(2);
         }
 
-        private void buttonPlayScissors_Click(object sender, EventArgs e)
+        private void ButtonPlayScissors_Click(object sender, EventArgs e)
         {
             textboxClientPlay.Text = "Scissors";
             PlayRequest?.Invoke(3);

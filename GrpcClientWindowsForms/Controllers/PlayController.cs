@@ -34,7 +34,6 @@ namespace GrpcClientWindowsForms.Controllers
             // No caso de não ter sido especificado endereço IP, retorna uma mensagem de erro para a view
             try
             {
-                PlayChannel = GrpcChannel.ForAddress("https://localhost:5001");
                 PlayClient = new Game.GameClient(PlayChannel);
             }
             // No caso de o endereço especificado ter um formato errado
@@ -100,6 +99,11 @@ namespace GrpcClientWindowsForms.Controllers
             {
                 Program.PlayView.ShowError("Error establishing connection!");
             }
+        }
+
+        public void EndConnection()
+        {
+            PlayClient = null;
         }
     }
 }

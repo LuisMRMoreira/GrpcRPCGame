@@ -14,11 +14,14 @@ namespace GrpcClientWindowsForms
     static class Program
     {
         // Endereço do servidor a qual é feita a conexão
-        public static string ServerAddress { get; private set; }
+        public static GrpcChannel ConnectionChannel { get; private set; }
+
         public static AuthView AuthView { get; private set; }
+        public static ConnectView ConnectView { get; private set; }
         public static PlayView PlayView { get; private set; }
         public static RegisterView RegisterView { get; private set; }
         public static AuthController AuthController { get; private set; }
+        public static ConnectController ConnectController { get; private set; }
         public static PlayController PlayController { get; private set; }
 
         [STAThread]
@@ -29,19 +32,27 @@ namespace GrpcClientWindowsForms
             Application.SetCompatibleTextRenderingDefault(false);
 
             AuthView = new AuthView();
+            ConnectView = new ConnectView();
             PlayView = new PlayView();
             RegisterView = new RegisterView();
 
             AuthController = new AuthController();
+            ConnectController = new ConnectController();
             PlayController = new PlayController();
 
-            Application.Run(AuthView);
+            Application.Run(ConnectView);
         }
 
         // Método para atribuir um valor ao field ServerAddress, que é usado para iniciar os channels das conexões GRPC
-        public static void SetServerAddress(string ipAddress)
+        public static void SetConnectionChannel(string address)
         {
-            ServerAddress = "https://" + ipAddress + ":5001";
+            ConnectionChannel = GrpcChannel.ForAddress(address);
+        }
+
+        // Método usado para repor o channel usado para comunicar com o servidor
+        public static void ResetConnection()
+        {
+            ConnectionChannel = null;
         }
     }
 }

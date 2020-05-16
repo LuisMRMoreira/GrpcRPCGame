@@ -31,7 +31,10 @@ namespace GrpcClientWindowsForms.Views
         {
             buttonRegister.Enabled = false;
             buttonLogin.Enabled = false;
-            Program.RegisterView.ShowDialog();
+            if (Program.RegisterView.ShowDialog() == DialogResult.OK)
+            {
+                // TODO: Mensagem de sucesso de registo
+            }
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -50,7 +53,7 @@ namespace GrpcClientWindowsForms.Views
             buttonLogin.Visible = true;
         }
 
-        public void ShowError()
+        public void ShowError(int errorCode)
         {
 
         }

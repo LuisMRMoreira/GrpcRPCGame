@@ -69,7 +69,7 @@
             this.buttonPlayScissors.TabIndex = 0;
             this.buttonPlayScissors.Text = "Play Scissors";
             this.buttonPlayScissors.UseVisualStyleBackColor = true;
-            this.buttonPlayScissors.Click += new System.EventHandler(this.buttonPlayScissors_Click);
+            this.buttonPlayScissors.Click += new System.EventHandler(this.ButtonPlayScissors_Click);
             // 
             // label1
             // 
