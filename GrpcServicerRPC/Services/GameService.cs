@@ -54,17 +54,17 @@ namespace GrpcServerRPS.Services
                     switch (serverPlay)
                     {
                         case 1: // Pedra
-                            output.ServerPlay = "Pedra";
+                            output.ServerPlay = "Rock";
                             output.Result = 0; // Empate
                             h.draw++;
                             break;
                         case 2: // Papel
-                            output.ServerPlay = "Papel";
+                            output.ServerPlay = "Paper";
                             output.Result = 2; // Servidor venceu
                             h.lost++;
                             break;
                         case 3: // Tesoura
-                            output.ServerPlay = "Tesoura";
+                            output.ServerPlay = "Scissors";
                             output.Result = 1; // Utilizador venceu
                             h.win++;
                             break;
@@ -78,17 +78,17 @@ namespace GrpcServerRPS.Services
                     switch (serverPlay)
                     {
                         case 1: // Pedra
-                            output.ServerPlay = "Pedra";
+                            output.ServerPlay = "Rock";
                             output.Result = 1; // Utilizador venceu
                             h.win++;
                             break;
                         case 2: // Papel
-                            output.ServerPlay = "Papel";
+                            output.ServerPlay = "Paper";
                             output.Result = 0; // Empate
                             h.draw++;
                             break;
                         case 3: // Tesoura
-                            output.ServerPlay = "Tesoura";
+                            output.ServerPlay = "Scissors";
                             output.Result = 2; // Servidor venceu
                             h.lost++;
                             break;
@@ -100,17 +100,17 @@ namespace GrpcServerRPS.Services
                     switch (serverPlay)
                     {
                         case 1: // Pedra
-                            output.ServerPlay = "Pedra";
+                            output.ServerPlay = "Rock";
                             output.Result = 2; // Servidor venceu
                             h.lost++;
                             break;
                         case 2: // Papel
-                            output.ServerPlay = "Papel";
+                            output.ServerPlay = "Paper";
                             output.Result = 1; // Utilizador venceu
                             h.win++;
                             break;
                         case 3: // Tesoura
-                            output.ServerPlay = "Tesoura";
+                            output.ServerPlay = "Scissors";
                             output.Result = 0; // Empate
                             h.draw++;
                             break;

@@ -32,6 +32,9 @@
             this.buttonLogin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonPlay = new System.Windows.Forms.Button();
+            this.labelWelcome = new System.Windows.Forms.Label();
+            this.textboxWelcome = new System.Windows.Forms.TextBox();
+            this.labelOutcome = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonRegister
@@ -42,7 +45,7 @@
             this.buttonRegister.TabIndex = 0;
             this.buttonRegister.Text = "Register";
             this.buttonRegister.UseVisualStyleBackColor = true;
-            this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
+            this.buttonRegister.Click += new System.EventHandler(this.ButtonRegister_Click);
             // 
             // buttonLogin
             // 
@@ -52,7 +55,7 @@
             this.buttonLogin.TabIndex = 0;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            this.buttonLogin.Click += new System.EventHandler(this.ButtonLogin_Click);
             // 
             // label1
             // 
@@ -70,13 +73,44 @@
             this.buttonPlay.Text = "Play";
             this.buttonPlay.UseVisualStyleBackColor = true;
             this.buttonPlay.Visible = false;
-            this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
+            this.buttonPlay.Click += new System.EventHandler(this.ButtonPlay_Click);
+            // 
+            // labelWelcome
+            // 
+            this.labelWelcome.AutoSize = true;
+            this.labelWelcome.Location = new System.Drawing.Point(230, 73);
+            this.labelWelcome.Name = "labelWelcome";
+            this.labelWelcome.Size = new System.Drawing.Size(71, 20);
+            this.labelWelcome.TabIndex = 1;
+            this.labelWelcome.Text = "Welcome";
+            this.labelWelcome.Visible = false;
+            // 
+            // textboxWelcome
+            // 
+            this.textboxWelcome.Enabled = false;
+            this.textboxWelcome.Location = new System.Drawing.Point(175, 111);
+            this.textboxWelcome.Name = "textboxWelcome";
+            this.textboxWelcome.Size = new System.Drawing.Size(181, 27);
+            this.textboxWelcome.TabIndex = 2;
+            this.textboxWelcome.Visible = false;
+            // 
+            // labelOutcome
+            // 
+            this.labelOutcome.AutoSize = true;
+            this.labelOutcome.Location = new System.Drawing.Point(199, 34);
+            this.labelOutcome.Name = "labelOutcome";
+            this.labelOutcome.Size = new System.Drawing.Size(0, 20);
+            this.labelOutcome.TabIndex = 3;
+            this.labelOutcome.Visible = false;
             // 
             // AuthView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 340);
+            this.Controls.Add(this.labelOutcome);
+            this.Controls.Add(this.textboxWelcome);
+            this.Controls.Add(this.labelWelcome);
             this.Controls.Add(this.buttonPlay);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonLogin);
@@ -85,6 +119,7 @@
             this.Text = "Authentication";
             this.Load += new System.EventHandler(this.AuthView_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -94,5 +129,8 @@
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonPlay;
+        private System.Windows.Forms.Label labelWelcome;
+        private System.Windows.Forms.TextBox textboxWelcome;
+        private System.Windows.Forms.Label labelOutcome;
     }
 }

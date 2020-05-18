@@ -48,7 +48,6 @@ namespace GrpcServerRPS.Services
 
         }
 
-
         public override Task<UserRegistModel> Regist(UserRegistLookupModel request, ServerCallContext context)
         {
             UserRegistModel output = new UserRegistModel();

@@ -23,31 +23,46 @@ namespace GrpcClientWindowsForms.Views
             GRPCStartRequest?.Invoke();
         }
 
-        private void buttonPlayPaper_Click(object sender, EventArgs e)
+        private void ButtonPlayPaper_Click(object sender, EventArgs e)
         {
             textboxClientPlay.Text = "Paper";
-            PlayRequest?.Invoke(1);
+            DisablePlayButtons();
+            PlayRequest?.Invoke(2);
         }
 
-        private void buttonPlayRock_Click(object sender, EventArgs e)
+        private void ButtonPlayRock_Click(object sender, EventArgs e)
         {
             textboxClientPlay.Text = "Rock";
-            PlayRequest?.Invoke(2);
+            DisablePlayButtons();
+            PlayRequest?.Invoke(1);
         }
 
         private void ButtonPlayScissors_Click(object sender, EventArgs e)
         {
             textboxClientPlay.Text = "Scissors";
+            DisablePlayButtons();
             PlayRequest?.Invoke(3);
         } 
 
-        public void UpdateButtonsToEnabled()
+        // Sempre que é pressionado um botão para realizar uma jogada, é chamado este método para prevenir que mais jogadas sejam feitas
+        // enquanto a jogada não for processada pelo servidor e apresentado o resultado ao jogador
+        public void DisablePlayButtons()
+        {
+            buttonPlayPaper.Enabled = false;
+            buttonPlayRock.Enabled = false;
+            buttonPlayScissors.Enabled = false;
+        }
+
+        // Após o resultado ser apresentado ao jogador, após uma jogada, é chamado este método para ativar os botões e possibilitar outra
+        // jogada do client
+        public void EnablePlayButtons()
         {
             buttonPlayPaper.Enabled = true;
             buttonPlayRock.Enabled = true;
             buttonPlayScissors.Enabled = true;
         }
 
+        // Método usado para apresentar a jogada do servidor e resultado do jogo na view
         public void ShowGameOutcome(int outcome, string serverPlay)
         {
             textboxServerPlay.Text = serverPlay;
@@ -64,12 +79,22 @@ namespace GrpcClientWindowsForms.Views
                     labelOutcome.Text = "Server wins!";
                     break;
             }
+
+            EnablePlayButtons();
         }
 
-        public void ShowError(string error)
+
+        // No caso de ocorrer algum problema com a conexão é chamado este método, que tem como função esconder e repor esta view
+        public void ResetAndHide()
         {
-            labelOutcome.Text = error;
-            labelOutcome.Visible = true;
+            Hide();
+            labelOutcome.Text = "";
+            labelOutcome.Visible = false;
+            buttonPlayPaper.Enabled = false;
+            buttonPlayRock.Enabled = false;
+            buttonPlayScissors.Enabled = false;
+            textboxClientPlay.Text = "";
+            textboxServerPlay.Text = "";
         }
     }
 }

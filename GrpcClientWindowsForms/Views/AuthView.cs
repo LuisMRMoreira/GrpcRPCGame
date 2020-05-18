@@ -22,25 +22,41 @@ namespace GrpcClientWindowsForms.Views
             GRPCStartRequest?.Invoke();
         }
 
-        private void buttonPlay_Click(object sender, EventArgs e)
+        private void ButtonPlay_Click(object sender, EventArgs e)
         {
-
+            Hide();
+            Program.PlayView.Show();
         }
 
-        private void buttonRegister_Click(object sender, EventArgs e)
+        private void ButtonRegister_Click(object sender, EventArgs e)
         {
             buttonRegister.Enabled = false;
             buttonLogin.Enabled = false;
             if (Program.RegisterView.ShowDialog() == DialogResult.OK)
             {
-                // TODO: Mensagem de sucesso de registo
+                labelOutcome.Text = "The registration process was successful!";
             }
+
+            buttonLogin.Enabled = true;
+            buttonRegister.Enabled = true;
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private void ButtonLogin_Click(object sender, EventArgs e)
         {
             buttonRegister.Enabled = false;
             buttonLogin.Enabled = false;
+            if (Program.LoginView.ShowDialog() == DialogResult.OK)
+            {
+                textboxWelcome.Text = Program.AuthUser.Username.ToString();
+                labelOutcome.Visible = false;
+                labelWelcome.Visible = true;
+                textboxWelcome.Visible = true;
+
+                buttonLogin.Visible = false;
+                buttonRegister.Visible = false;
+                buttonPlay.Enabled = true;
+                buttonPlay.Visible = true;
+            }
         }
 
         public void EnableAuthButtons()

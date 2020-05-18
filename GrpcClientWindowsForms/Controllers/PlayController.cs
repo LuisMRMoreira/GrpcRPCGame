@@ -8,8 +8,6 @@ namespace GrpcClientWindowsForms.Controllers
 {
     class PlayController
     {
-        // Channel e Client usados para jogar
-        public static GrpcChannel PlayChannel { get; private set; }
         public static Game.GameClient PlayClient { get; private set; }
 
 
@@ -22,37 +20,14 @@ namespace GrpcClientWindowsForms.Controllers
         // Método usado para criar uma conexão GRPC com o servidor
         private async void StartGRPCConnection()
         {
-            // No caso de a conexão já ter sido inicializada, retorna uma mensagem de erro para a view
-            if (PlayChannel != null || PlayClient != null)
-            {
-                Program.PlayView.ShowError("Connection already established!");
-                return;
-            }
-
-            // TODO: Receber endereço IP por windows forms
             // Estabelece uma conexão com o servidor com o address especificado com o utilizador
             // No caso de não ter sido especificado endereço IP, retorna uma mensagem de erro para a view
             try
             {
-                PlayClient = new Game.GameClient(PlayChannel);
-            }
-            // No caso de o endereço especificado ter um formato errado
-            catch (UriFormatException)
-            {
-                Program.PlayView.ShowError("No address set to connect!");
-                return;
-            }
-            // No caso de não ter sido especificado um endereço
-            catch (ArgumentNullException)
-            {
-                Program.PlayView.ShowError("No address set to connect!");
-                return;
-            }
+                PlayClient = new Game.GameClient(Program.ConnectionChannel);
 
-            // Após ter sido criada a conexão, é enviada um pedido para obter as estatísticas do jogador, que é usada tanto para
-            // testar a conexão e obter as estatísticas do jogador para serem apresentadas na view
-            try
-            {
+                // Após ter sido criada a conexão, é enviada um pedido para obter as estatísticas do jogador, que é usada tanto para
+                // testar a conexão e obter as estatísticas do jogador para serem apresentadas na view
                 var statsRequest = new StatsLookupModel
                 {
                     UserId = 1
@@ -63,41 +38,43 @@ namespace GrpcClientWindowsForms.Controllers
             // No caso de a conexão falhar é apanhada a exceção respetiva, e é apresentada uma mensagem de erro na view
             catch (Grpc.Core.RpcException)
             {
-                Program.PlayView.ShowError("Error establishing connection!");
+                Program.ConnectController.ConnectionError();
                 return;
             }
 
             // TODO: Carregar stats para a view
             // Se a conexão for feita com sucesso, são carregadas as estatísticas para a view, e são ativados os butões para jogar
-            Program.PlayView.UpdateButtonsToEnabled();
+            Program.PlayView.EnablePlayButtons();
             return;
         }
 
         private async void Play(int play)
         {
-            // No caso de conexão ainda não ter sido feita
-            if (PlayChannel == null || PlayClient == null)
+            // Se o client estiver a null, significa que ocorreu algum erro, e é finalizada a conexão
+            if (PlayClient == null)
             {
-                Program.PlayView.ShowError("Connection already established!");
+                Program.ConnectController.ConnectionError();
                 return;
             }
 
             try
             {
-                var outcome = await PlayClient.PlayAsync(
-                    new PlayLookupModel
-                    {
-                        UserId = 1,
-                        Play = play
-                    }
-                );
+                PlayLookupModel playRequest = new PlayLookupModel
+                {
+                    UserId = Program.AuthUser.ID,
+                    Play = play
+                };
+
+                var outcome = await PlayClient.PlayAsync(playRequest);
 
                 Program.PlayView.ShowGameOutcome(outcome.Result, outcome.ServerPlay);
             }
             // No caso de a conexão falhar é apanhada a exceção respetiva, e é apresentada uma mensagem de erro na view
             catch (Grpc.Core.RpcException)
             {
-                Program.PlayView.ShowError("Error establishing connection!");
+                Program.PlayView.ResetAndHide();
+                Program.ConnectController.ConnectionError();
+                return;
             }
         }
 

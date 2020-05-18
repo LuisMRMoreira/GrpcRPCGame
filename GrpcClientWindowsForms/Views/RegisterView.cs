@@ -19,23 +19,17 @@ namespace GrpcClientWindowsForms.Views
 
         public void ShowError(int errorCode)
         {
-
+            switch (errorCode)
+            {
+                case -1:
+                    
+                    break;
+            }
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             RegisterRequest?.Invoke(textboxUsername.Text, textboxEmail.Text, textboxPassword.Text, textboxPasswordConfirmation.Text);
-        }
-
-        private void ButtonCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
-
-        private void ResetView()
-        {
-
         }
 
         public void SuccessfulRegistration()

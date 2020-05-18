@@ -47,7 +47,7 @@
             this.buttonPlayPaper.TabIndex = 0;
             this.buttonPlayPaper.Text = "Play Paper";
             this.buttonPlayPaper.UseVisualStyleBackColor = true;
-            this.buttonPlayPaper.Click += new System.EventHandler(this.buttonPlayPaper_Click);
+            this.buttonPlayPaper.Click += new System.EventHandler(this.ButtonPlayPaper_Click);
             // 
             // buttonPlayRock
             // 
@@ -58,7 +58,7 @@
             this.buttonPlayRock.TabIndex = 0;
             this.buttonPlayRock.Text = "Play Rock";
             this.buttonPlayRock.UseVisualStyleBackColor = true;
-            this.buttonPlayRock.Click += new System.EventHandler(this.buttonPlayRock_Click);
+            this.buttonPlayRock.Click += new System.EventHandler(this.ButtonPlayRock_Click);
             // 
             // buttonPlayScissors
             // 

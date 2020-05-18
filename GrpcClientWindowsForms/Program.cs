@@ -13,13 +13,18 @@ namespace GrpcClientWindowsForms
 {
     static class Program
     {
+        // Guarda o ID e Username do utilizador que está a usar o cliente
+        public static AuthenticatedUser AuthUser { get; private set; }
+
         // Endereço do servidor a qual é feita a conexão
         public static GrpcChannel ConnectionChannel { get; private set; }
 
         public static AuthView AuthView { get; private set; }
         public static ConnectView ConnectView { get; private set; }
+        public static LoginView LoginView { get; private set; }
         public static PlayView PlayView { get; private set; }
         public static RegisterView RegisterView { get; private set; }
+
         public static AuthController AuthController { get; private set; }
         public static ConnectController ConnectController { get; private set; }
         public static PlayController PlayController { get; private set; }
@@ -33,6 +38,7 @@ namespace GrpcClientWindowsForms
 
             AuthView = new AuthView();
             ConnectView = new ConnectView();
+            LoginView = new LoginView();
             PlayView = new PlayView();
             RegisterView = new RegisterView();
 
@@ -53,6 +59,16 @@ namespace GrpcClientWindowsForms
         public static void ResetConnection()
         {
             ConnectionChannel = null;
+        }
+
+        public static void SetAuthenticatedUser(int id, string username)
+        {
+            AuthUser = new AuthenticatedUser(id, username);
+        }
+
+        public static void ResetAuthenticatedUser()
+        {
+            AuthUser = null;
         }
     }
 }
