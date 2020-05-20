@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace GrpcServerRPS.Data.Migrations
+namespace GrpcServerRPS.Migrations
 {
     [DbContext(typeof(RPSGameDbContext))]
     partial class RPSGameDbContextModelSnapshot : ModelSnapshot
@@ -58,7 +58,8 @@ namespace GrpcServerRPS.Data.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -66,16 +67,25 @@ namespace GrpcServerRPS.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SessionID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("SessionID")
+                        .IsUnique()
+                        .HasFilter("[SessionID] IS NOT NULL");
+
+                    b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("User");

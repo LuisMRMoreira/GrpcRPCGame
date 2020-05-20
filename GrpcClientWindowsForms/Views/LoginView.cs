@@ -27,5 +27,20 @@ namespace GrpcClientWindowsForms.Views
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        public void ResetView()
+        {
+            textboxUsername.Text = "";
+            textboxPassword.Text = "";
+            buttonLogin.Enabled = false;
+        }
+
+        public void ShowError(string errorMessage)
+        {
+            ResetView();
+
+            // TODO: Create label to show error
+
+        }
     }
 }

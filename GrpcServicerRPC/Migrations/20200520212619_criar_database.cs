@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Data;
 
-namespace GrpcServerRPS.Data.Migrations
+namespace GrpcServerRPS.Migrations
 {
-    public partial class criar_db : Migration
+    public partial class criar_database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,10 +12,10 @@ namespace GrpcServerRPS.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(nullable: false),
-                    SessionID = table.Column<string>(nullable: true)
+                    SessionID = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,6 +49,25 @@ namespace GrpcServerRPS.Data.Migrations
                 name: "IX_History_userId",
                 table: "History",
                 column: "userId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                table: "User",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_SessionID",
+                table: "User",
+                column: "SessionID",
+                unique: true,
+                filter: "[SessionID] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Username",
+                table: "User",
+                column: "Username",
                 unique: true);
         }
 

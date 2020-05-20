@@ -2,12 +2,14 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
-using System.Data.SqlClient;
 using System.Data.Common;
 using GrpcServerRPS.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace GrpcServerRPS.Services
 {
@@ -38,10 +40,25 @@ namespace GrpcServerRPS.Services
             }
             else
             {
-                // Sempre que um utilizador se autentica, é gerado sempre um novo ID de sessão
-                u.GenerateSessionID();
-                _context.SaveChanges();
-
+                // Sempre que um utilizador se autentica, é gerado sempre um novo ID de sessão.
+                // É usado um ciclo para, no caso do ID de sessão gerado já existir, poder gerar um novo
+                bool success;
+                do
+                {
+                    success = true;
+                    try
+                    {
+                        u.GenerateSessionID();
+                        _context.SaveChanges();
+                    }
+                    // Exceção que está relacionada com o constraint UNIQUE do ID de Sessão
+                    catch (DbUpdateException e)
+                    {
+                       // TODO: Verificar erros de constraint
+                    }
+                }
+                while (success == false) ;
+                
                 output.Valid = true;
                 output.SessionID = u.SessionID;
             }

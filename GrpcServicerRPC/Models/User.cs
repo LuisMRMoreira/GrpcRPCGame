@@ -14,9 +14,11 @@ namespace GrpcServerRPS.Models
         public int Id { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
+        [MaxLength(30)]
         public string Username { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
+        [MaxLength(50)]
         public string Email { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
@@ -27,6 +29,7 @@ namespace GrpcServerRPS.Models
         // que este cliente vai usar este ID como identificador do utilizador, em cada pedido ao serviço GRPC. É usado um ID
         // de sessão aleatório em vez de o ID do utilizador, para diminuir a probabilidade de obtenção de um ID de autenticação
         // de contas de utilizadores através de pesquisas de força bruta
+        [MaxLength(20)]
         public string SessionID { get; set; }
 
         [InverseProperty("User")]
@@ -49,7 +52,8 @@ namespace GrpcServerRPS.Models
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
 
-            SessionID = new string(stringChars);
+            //SessionID = new string(stringChars);
+            SessionID = "1";
         }
     }
 }

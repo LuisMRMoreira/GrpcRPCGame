@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace GrpcServerRPS.Data.Migrations
+namespace GrpcServerRPS.Migrations
 {
     [DbContext(typeof(RPSGameDbContext))]
-    [Migration("20200508230727_criar_db")]
-    partial class criar_db
+    [Migration("20200520212619_criar_database")]
+    partial class criar_database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,19 +60,35 @@ namespace GrpcServerRPS.Data.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SessionID")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(20);
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("SessionID")
+                        .IsUnique()
+                        .HasFilter("[SessionID] IS NOT NULL");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("User");
                 });

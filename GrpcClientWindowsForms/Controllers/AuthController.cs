@@ -118,6 +118,7 @@ namespace GrpcClientWindowsForms.Controllers
                 // No caso de autenticação falhar, é enviada a mensagem de erro ao utilizador
                 if (outcome.Valid == false)
                 {
+                    Program.LoginView.ShowError("-1: User or/and password do not match any user!");
                     return;
                 }
 
