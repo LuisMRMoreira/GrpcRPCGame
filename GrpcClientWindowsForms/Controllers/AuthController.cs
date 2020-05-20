@@ -49,6 +49,7 @@ namespace GrpcClientWindowsForms.Controllers
             }
 
             // Tenta registar o utilizador
+            int validRegistration;
             try
             {
                 UserRegistLookupModel registerRequest = new UserRegistLookupModel
@@ -59,30 +60,7 @@ namespace GrpcClientWindowsForms.Controllers
                 };
 
                 var outcome = await AuthClient.RegistAsync(registerRequest);
-
-                // No caso de o registo falhar, é necessário verificar porquê falhou, e enviar o código de erro respetivo a view
-                if (outcome.Valid == false)
-                {
-                    switch (outcome.WihchInvalid)
-                    {
-                        // Já existe uma conta registada com o mesmo username
-                        case 1:
-                            Program.RegisterView.ShowError(-2);
-                            return;
-                        // Já existe uma conta registada com o mesmo email
-                        case 2:
-                            Program.RegisterView.ShowError(-3);
-                            return;
-                        // Já existe uma conta registada com o mesmo username e mail
-                        case 3:
-                            Program.RegisterView.ShowError(-4);
-                            return;
-                        // Erro desconhecido
-                        default:
-                            Program.RegisterView.ShowError(-99);
-                            return;
-                    }
-                }
+                validRegistration = outcome.Valid;
             }
             // No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
             catch (Grpc.Core.RpcException)
@@ -91,8 +69,29 @@ namespace GrpcClientWindowsForms.Controllers
                 return;
             }
 
-            // Após o registo ser feito com sucesso, é enviada uma mensagem de sucesso para a view de autenticação
-            Program.RegisterView.SuccessfulRegistration();
+            switch (validRegistration)
+            {
+                // Registo feito com sucesso
+                case 1:
+                    Program.RegisterView.SuccessfulRegistration();
+                    return;
+                // Já existe uma conta registada com o mesmo username
+                case -1:
+                    Program.RegisterView.ShowError(-2);
+                    return;
+                // Já existe uma conta registada com o mesmo email
+                case -2:
+                    Program.RegisterView.ShowError(-3);
+                    return;
+                // Já existe uma conta registada com o mesmo username e mail
+                case -3:
+                    Program.RegisterView.ShowError(-4);
+                    return;
+                // Erro desconhecido
+                default:
+                    Program.RegisterView.ShowError(-99);
+                    return;
+            }     
         }
 
         // Método usado para enviar um pedido para o servidor GRPC com o intuito de autenticar um utilizador
@@ -122,8 +121,8 @@ namespace GrpcClientWindowsForms.Controllers
                     return;
                 }
 
-                // Se a autenticação for feita com sucesso, é guardado o ID e o Username do utilizador no client
-                Program.SetAuthenticatedUser(outcome.UserId, username);
+                // Se a autenticação for feita com sucesso, é guardado o ID de sessão do Username do utilizador no client
+                Program.SetAuthenticatedUser(outcome.SessionID, username);
             }
             // No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
             catch (Grpc.Core.RpcException)

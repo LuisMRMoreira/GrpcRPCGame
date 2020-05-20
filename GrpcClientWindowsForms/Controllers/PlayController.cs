@@ -22,6 +22,7 @@ namespace GrpcClientWindowsForms.Controllers
         {
             // Estabelece uma conexão com o servidor com o address especificado com o utilizador
             // No caso de não ter sido especificado endereço IP, retorna uma mensagem de erro para a view
+            StatsModel stats;
             try
             {
                 PlayClient = new Game.GameClient(Program.ConnectionChannel);
@@ -30,10 +31,10 @@ namespace GrpcClientWindowsForms.Controllers
                 // testar a conexão e obter as estatísticas do jogador para serem apresentadas na view
                 var statsRequest = new StatsLookupModel
                 {
-                    UserId = 1
+                    SessionId = Program.AuthUser.SessionID
                 };
 
-                var stats = await PlayClient.StatsAsync(statsRequest);
+                stats = await PlayClient.StatsAsync(statsRequest);
             }
             // No caso de a conexão falhar é apanhada a exceção respetiva, e é apresentada uma mensagem de erro na view
             catch (Grpc.Core.RpcException)
@@ -42,7 +43,23 @@ namespace GrpcClientWindowsForms.Controllers
                 return;
             }
 
-            // TODO: Carregar stats para a view
+            try 
+            {
+                // Se o número de jogados for -1 significa que o utilizador com o ID de sessão não existe no servidor
+                if (stats.GamesPlayed == -1)
+                {
+                    throw new UserNotFoundException();
+                }
+
+                // TODO: Carregar stats para a view
+            }
+            // No caso de não existir o utilizador na base de dados com o ID de sessão
+            catch (UserNotFoundException)
+            {
+                Program.ConnectController.UserNotFound();
+                return;
+            }
+       
             // Se a conexão for feita com sucesso, são carregadas as estatísticas para a view, e são ativados os butões para jogar
             Program.PlayView.EnablePlayButtons();
             return;
@@ -61,7 +78,7 @@ namespace GrpcClientWindowsForms.Controllers
             {
                 PlayLookupModel playRequest = new PlayLookupModel
                 {
-                    UserId = Program.AuthUser.ID,
+                    SessionId = Program.AuthUser.SessionID,
                     Play = play
                 };
 

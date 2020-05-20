@@ -61,9 +61,9 @@ namespace GrpcClientWindowsForms
             ConnectionChannel = null;
         }
 
-        public static void SetAuthenticatedUser(int id, string username)
+        public static void SetAuthenticatedUser(string sessionID, string username)
         {
-            AuthUser = new AuthenticatedUser(id, username);
+            AuthUser = new AuthenticatedUser(sessionID, username);
         }
 
         public static void ResetAuthenticatedUser()

@@ -7,12 +7,12 @@ namespace GrpcClientWindowsForms
 {
     class AuthenticatedUser
     {
-        public int ID { get; private set; }
+        public string SessionID { get; private set; }
         public string Username { get; private set; }
 
-        public AuthenticatedUser(int id, string username)
+        public AuthenticatedUser(string sessionID, string username)
         {
-            ID = id;
+            SessionID = sessionID;
             Username = username;
         }
     }

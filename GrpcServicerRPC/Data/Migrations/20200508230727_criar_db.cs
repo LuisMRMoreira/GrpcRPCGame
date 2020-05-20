@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+using System.Data;
 
 namespace GrpcServerRPS.Data.Migrations
 {
@@ -14,7 +16,8 @@ namespace GrpcServerRPS.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false)
+                    Password = table.Column<string>(nullable: false),
+                    SessionID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\RPSGameDbContextModelSnapshot.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Protos\game.proto" />
     <None Remove="Protos\user.proto" />
   </ItemGroup>

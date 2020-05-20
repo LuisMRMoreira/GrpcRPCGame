@@ -31,16 +31,19 @@ namespace GrpcServerRPS.Services
             Models.User u = _context.User.FirstOrDefault(u => u.Username == request.Username && u.Password == request.Password);
 
             if (u == null)
-            { // Se não existir nenhuma entrada na base de dados com o username e password igual, então o output tem de ser autenticação inválida.
+            { 
+                // Se não existir nenhuma entrada na base de dados com o username e password igual, então o output tem de ser autenticação inválida.
                 output.Valid = false;
-                output.WihchInvalid = 3; // TODO: meter isto a funcionar bem
-                output.UserId = u.Id;
+                output.SessionID = null;
             }
             else
             {
+                // Sempre que um utilizador se autentica, é gerado sempre um novo ID de sessão
+                u.GenerateSessionID();
+                _context.SaveChanges();
+
                 output.Valid = true;
-                output.WihchInvalid = 0; // TODO: meter isto a funcionar bem
-                output.UserId = u.Id;
+                output.SessionID = u.SessionID;
             }
                 
 
@@ -60,17 +63,13 @@ namespace GrpcServerRPS.Services
             if (u1 != null)
             {
                 if (u2 == null)
-                {
-                    output.WihchInvalid = 3; // username e email inválidos
-                }
+                    output.Valid = -3; // username e email inválidos
                 else
-                    output.WihchInvalid = 1; // Apenas username inválido
-                output.Valid = false;
+                    output.Valid = -1; // Apenas username inválido
             }
             else if (u2 != null)
             {
-                output.WihchInvalid = 2; // Apenas email inválido
-                output.Valid = false;
+                output.Valid = -2; // Apenas email inválido
             }
             else
             {
@@ -88,14 +87,12 @@ namespace GrpcServerRPS.Services
                 _context.User.Add(u);
                 _context.SaveChanges();
                 
-                output.WihchInvalid = 0; // Todos válidos
-                output.Valid = true;
+                output.Valid = 1; // Todos válidos
             }
                 
 
             return Task.FromResult(output);
 
         }
-
     }
 }

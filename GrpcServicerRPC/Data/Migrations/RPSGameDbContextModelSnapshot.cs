@@ -65,12 +65,18 @@ namespace GrpcServerRPS.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SessionID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SessionID")
+                        .IsUnique();
 
                     b.ToTable("User");
                 });

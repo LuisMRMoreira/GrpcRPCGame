@@ -23,28 +23,37 @@ namespace GrpcServerRPS.Services
 
         public override Task<PlayModel> Play(PlayLookupModel request, ServerCallContext context)
         {
-            Random rnd = new Random();
-            int serverPlay = rnd.Next(1, 4);
-
             PlayModel output = new PlayModel();
-            History h;
-            h = _context.History.Include(i => i.User).FirstOrDefault(u => u.userId == request.UserId);
+
+            // Obtemos o utilizador da base de dados com o ID de sessão, para depois obtermos o seu ID, se não existir é retornado o código
+            // de erro para o cliente
+            Models.User user = _context.User.FirstOrDefault(u => u.SessionID == request.SessionId);
+            if (user == null)
+            {
+                output.Result = -1;
+                return Task.FromResult(output);
+            }
+
+            History h = _context.History.Include(i => i.User).FirstOrDefault(u => u.userId == user.Id);
             if (h == null) // No caso do utilizador nunca ter jogado
             {
                 _context.Database.EnsureCreated();
 
 
-                Models.User user = _context.User.FirstOrDefault(u => u.Id == request.UserId);
-
-                h = new Models.History();
-                h.userId = request.UserId;
-                h.User = user;
+                h = new History
+                {
+                    userId = user.Id,
+                    User = user
+                };
 
                 _context.History.Add(h);
                 _context.SaveChanges();
 
             }
 
+            // É gerada a jogada do servidor
+            Random rnd = new Random();
+            int serverPlay = rnd.Next(1, 4);
 
 
             switch (request.Play)
@@ -134,8 +143,17 @@ namespace GrpcServerRPS.Services
         public override Task<StatsModel> Stats(StatsLookupModel request, ServerCallContext context)
         {
             StatsModel output = new StatsModel();
-            Models.History h = new Models.History();
-            h = _context.History.FirstOrDefault(u => u.userId == request.UserId);
+
+            // Obtemos o utilizador da base de dados com o ID de sessão, para depois obtermos o seu ID, se não existir é retornado o código
+            // de erro para o cliente
+            Models.User user = _context.User.FirstOrDefault(u => u.SessionID == request.SessionId);
+            if (user == null)
+            {
+                output.GamesPlayed = -1;
+                return Task.FromResult(output);
+            }
+
+            History h = _context.History.FirstOrDefault(u => u.userId == user.Id);
             if (h == null) // No caso do utilizador nunca ter jogado, cria-se uma entrada.
             {
                 _context.Database.EnsureCreated();
@@ -146,7 +164,7 @@ namespace GrpcServerRPS.Services
                     win = 0,
                     lost = 0,
                     draw = 0,
-                    userId = request.UserId
+                    userId = user.Id
                 };
 
                 _context.History.Add(h);

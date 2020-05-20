@@ -48,6 +48,7 @@ namespace GrpcClientWindowsForms.Views
         //     -1 - A conexão já foi estabelecida com sucesso e o cliente está a tentar estabeler a conexão de novo
         //     -2 - O endereço inserido pelo cliente é inválido
         //     -3 - Não foi possível estabeler conexão com o servidor com o endereço inserido
+        //     -4 - O utilizador autenticado no cliente não existe na base de dados do servidor
         public void ShowError(int error)
         {
             switch (error)
@@ -63,6 +64,11 @@ namespace GrpcClientWindowsForms.Views
                 case -3:
                     RestartView();
                     labelOutcome.Text = "-3: Connection failed!";
+                    labelOutcome.Visible = true;
+                    break;
+                case -4:
+                    RestartView();
+                    labelOutcome.Text = "-4: User not found!";
                     labelOutcome.Visible = true;
                     break;
                 default:

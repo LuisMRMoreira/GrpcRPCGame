@@ -92,5 +92,12 @@ namespace GrpcClientWindowsForms.Controllers
             Program.ConnectView.OpenIfClosed();
             Program.ConnectView.ShowError(-3);
         }
+
+        // Método que é chamado sempre que o utilizador autenticado com o cliente não existir no servidor
+        public void UserNotFound()
+        {
+            EndConnection();
+            Program.ConnectView.ShowError(-4);
+        }
     }
 }

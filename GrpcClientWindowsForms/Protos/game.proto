@@ -12,27 +12,27 @@ service Game {
 
 message PlayLookupModel {
 	
-	int32 userId = 1;
+	string sessionId = 1;
 	int32 play = 2;
 
 }
 
 message StatsLookupModel {
 	
-	int32 userId = 1;
+	string sessionId = 1;
 	
 }
 
 message PlayModel {
 	
-	int32 result = 1; // 0: Empate; 1: Utilizador ganhou; 2: Servidor ganhou;
+	int32 result = 1; // 0: Empate; 1: Utilizador ganhou; 2: Servidor ganhou; -1: Utilizador não existe
 	string serverPlay = 2;
 
 }
 
 message StatsModel {
 	
-	int32 gamesPlayed = 1;
+	int32 gamesPlayed = 1;  // Se o número de jogos for igual a -1, significa que o utilizador não existe
 	int32 wins = 2;
 	int32 draws = 3;
 	int32 losts = 4;
