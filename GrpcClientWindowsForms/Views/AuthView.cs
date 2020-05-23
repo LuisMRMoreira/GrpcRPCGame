@@ -22,6 +22,18 @@ namespace GrpcClientWindowsForms.Views
             GRPCStartRequest?.Invoke();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+                Program.ConnectView.Show();
+            }
+        }
+
         private void ButtonPlay_Click(object sender, EventArgs e)
         {
             Hide();
@@ -32,9 +44,11 @@ namespace GrpcClientWindowsForms.Views
         {
             buttonRegister.Enabled = false;
             buttonLogin.Enabled = false;
+
             if (Program.RegisterView.ShowDialog() == DialogResult.OK)
             {
                 labelOutcome.Text = "The registration process was successful!";
+                labelOutcome.Visible = true;
             }
 
             buttonLogin.Enabled = true;
@@ -45,17 +59,21 @@ namespace GrpcClientWindowsForms.Views
         {
             buttonRegister.Enabled = false;
             buttonLogin.Enabled = false;
+
             if (Program.LoginView.ShowDialog() == DialogResult.OK)
             {
-                textboxWelcome.Text = Program.AuthUser.Username.ToString();
                 labelOutcome.Visible = false;
-                labelWelcome.Visible = true;
-                textboxWelcome.Visible = true;
-
                 buttonLogin.Visible = false;
                 buttonRegister.Visible = false;
+                textboxWelcome.Text = Program.AuthUser.Username.ToString();
+                              
                 buttonPlay.Enabled = true;
                 buttonPlay.Visible = true;
+            }
+            else
+            {
+                buttonLogin.Enabled = true;
+                buttonRegister.Enabled = true;
             }
         }
 

@@ -39,9 +39,10 @@
             // 
             // buttonRegister
             // 
-            this.buttonRegister.Location = new System.Drawing.Point(121, 194);
+            this.buttonRegister.Location = new System.Drawing.Point(103, 162);
+            this.buttonRegister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(135, 65);
+            this.buttonRegister.Size = new System.Drawing.Size(118, 49);
             this.buttonRegister.TabIndex = 0;
             this.buttonRegister.Text = "Register";
             this.buttonRegister.UseVisualStyleBackColor = true;
@@ -49,9 +50,10 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(288, 194);
+            this.buttonLogin.Location = new System.Drawing.Point(251, 162);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(135, 65);
+            this.buttonLogin.Size = new System.Drawing.Size(118, 49);
             this.buttonLogin.TabIndex = 0;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
@@ -61,14 +63,15 @@
             // 
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.Size = new System.Drawing.Size(88, 17);
             this.label1.TabIndex = 0;
             // 
             // buttonPlay
             // 
-            this.buttonPlay.Location = new System.Drawing.Point(199, 194);
+            this.buttonPlay.Location = new System.Drawing.Point(173, 162);
+            this.buttonPlay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.Size = new System.Drawing.Size(135, 65);
+            this.buttonPlay.Size = new System.Drawing.Size(118, 49);
             this.buttonPlay.TabIndex = 0;
             this.buttonPlay.Text = "Play";
             this.buttonPlay.UseVisualStyleBackColor = true;
@@ -78,36 +81,35 @@
             // labelWelcome
             // 
             this.labelWelcome.AutoSize = true;
-            this.labelWelcome.Location = new System.Drawing.Point(230, 73);
+            this.labelWelcome.Location = new System.Drawing.Point(201, 55);
             this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Size = new System.Drawing.Size(71, 20);
+            this.labelWelcome.Size = new System.Drawing.Size(57, 15);
             this.labelWelcome.TabIndex = 1;
             this.labelWelcome.Text = "Welcome";
-            this.labelWelcome.Visible = false;
             // 
             // textboxWelcome
             // 
             this.textboxWelcome.Enabled = false;
-            this.textboxWelcome.Location = new System.Drawing.Point(175, 111);
+            this.textboxWelcome.Location = new System.Drawing.Point(153, 83);
+            this.textboxWelcome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textboxWelcome.Name = "textboxWelcome";
-            this.textboxWelcome.Size = new System.Drawing.Size(181, 27);
+            this.textboxWelcome.Size = new System.Drawing.Size(159, 23);
             this.textboxWelcome.TabIndex = 2;
-            this.textboxWelcome.Visible = false;
             // 
             // labelOutcome
             // 
             this.labelOutcome.AutoSize = true;
-            this.labelOutcome.Location = new System.Drawing.Point(199, 34);
+            this.labelOutcome.Location = new System.Drawing.Point(212, 120);
             this.labelOutcome.Name = "labelOutcome";
-            this.labelOutcome.Size = new System.Drawing.Size(0, 20);
+            this.labelOutcome.Size = new System.Drawing.Size(33, 15);
             this.labelOutcome.TabIndex = 3;
             this.labelOutcome.Visible = false;
             // 
             // AuthView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 340);
+            this.ClientSize = new System.Drawing.Size(505, 255);
             this.Controls.Add(this.labelOutcome);
             this.Controls.Add(this.textboxWelcome);
             this.Controls.Add(this.labelWelcome);
@@ -115,6 +117,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.buttonRegister);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AuthView";
             this.Text = "Authentication";
             this.Load += new System.EventHandler(this.AuthView_Load);

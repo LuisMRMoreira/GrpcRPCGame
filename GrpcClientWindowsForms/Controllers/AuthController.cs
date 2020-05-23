@@ -45,7 +45,7 @@ namespace GrpcClientWindowsForms.Controllers
             // Verifica se as passwords inseridas são idênticas
             if (password != passwordConfirmation)
             {
-                Program.RegisterView.ShowError(-1);
+                Program.RegisterView.ShowError("The passwords don't match!");
             }
 
             // Tenta registar o utilizador
@@ -77,19 +77,19 @@ namespace GrpcClientWindowsForms.Controllers
                     return;
                 // Já existe uma conta registada com o mesmo username
                 case -1:
-                    Program.RegisterView.ShowError(-2);
+                    Program.RegisterView.ShowError("The username is already used!");
                     return;
                 // Já existe uma conta registada com o mesmo email
                 case -2:
-                    Program.RegisterView.ShowError(-3);
+                    Program.RegisterView.ShowError("The email is already used!");
                     return;
                 // Já existe uma conta registada com o mesmo username e mail
                 case -3:
-                    Program.RegisterView.ShowError(-4);
+                    Program.RegisterView.ShowError("The username and email are already taken!");
                     return;
                 // Erro desconhecido
                 default:
-                    Program.RegisterView.ShowError(-99);
+                    Program.RegisterView.ShowError("Unknown error!");
                     return;
             }     
         }
@@ -118,7 +118,7 @@ namespace GrpcClientWindowsForms.Controllers
                 // No caso de autenticação falhar, é enviada a mensagem de erro ao utilizador
                 if (outcome.Valid == false)
                 {
-                    Program.LoginView.ShowError("-1: User or/and password do not match any user!");
+                    Program.LoginView.ShowError("User or/and password do not match any user!");
                     return;
                 }
 

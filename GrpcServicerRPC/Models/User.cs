@@ -37,12 +37,12 @@ namespace GrpcServerRPS.Models
 
 
 
+        // Método usado para gerar um ID de sessão para o utilizador
         public void GenerateSessionID()
         {
             // Carateres que o ID de sessão pode conter
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             
-            // ID de sessão
             var stringChars = new char[20];
 
             var random = new Random();
@@ -52,8 +52,7 @@ namespace GrpcServerRPS.Models
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
 
-            //SessionID = new string(stringChars);
-            SessionID = "1";
+            SessionID = new string(stringChars);
         }
     }
 }

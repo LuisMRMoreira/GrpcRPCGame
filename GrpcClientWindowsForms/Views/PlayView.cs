@@ -23,6 +23,18 @@ namespace GrpcClientWindowsForms.Views
             GRPCStartRequest?.Invoke();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+                Program.AuthView.Show();
+            }
+        }
+
         private void ButtonPlayPaper_Click(object sender, EventArgs e)
         {
             textboxClientPlay.Text = "Paper";

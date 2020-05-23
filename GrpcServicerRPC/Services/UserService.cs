@@ -2,12 +2,12 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.Common;
 using GrpcServerRPS.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -36,7 +36,7 @@ namespace GrpcServerRPS.Services
             { 
                 // Se não existir nenhuma entrada na base de dados com o username e password igual, então o output tem de ser autenticação inválida.
                 output.Valid = false;
-                output.SessionID = null;
+                output.SessionID = "";
             }
             else
             {
@@ -51,10 +51,10 @@ namespace GrpcServerRPS.Services
                         u.GenerateSessionID();
                         _context.SaveChanges();
                     }
-                    // Exceção que está relacionada com o constraint UNIQUE do ID de Sessão
-                    catch (DbUpdateException e)
+                    // Exceção que é lançada sempre que é quebrado o constraint UNIQUE do ID de sessão, no caso do ID de sessão gerada já existir
+                    catch (DbUpdateException e) when (e.InnerException is SqlException sqlEx && (sqlEx.Number == 2627 || sqlEx.Number == 2601))
                     {
-                       // TODO: Verificar erros de constraint
+                        success = false;
                     }
                 }
                 while (success == false) ;
@@ -63,7 +63,6 @@ namespace GrpcServerRPS.Services
                 output.SessionID = u.SessionID;
             }
                 
-
             return Task.FromResult(output);
 
         }

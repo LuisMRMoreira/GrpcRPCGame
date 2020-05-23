@@ -18,6 +18,17 @@ namespace GrpcClientWindowsForms.Views
             InitializeComponent();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Program.PlayView.Close();
+                Program.AuthView.Close();
+            }
+        }
+
         private void TextboxServerAddress_TextChanged(object sender, EventArgs e)
         {
             buttonConnect.Enabled = true;

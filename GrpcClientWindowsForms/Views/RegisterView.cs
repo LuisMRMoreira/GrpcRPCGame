@@ -17,14 +17,10 @@ namespace GrpcClientWindowsForms.Views
             InitializeComponent();
         }
 
-        public void ShowError(int errorCode)
+        public void ShowError(string error)
         {
-            switch (errorCode)
-            {
-                case -1:
-                    
-                    break;
-            }
+            labelOutcome.Text = error;
+            labelOutcome.Visible = true;
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
@@ -34,8 +30,14 @@ namespace GrpcClientWindowsForms.Views
 
         public void SuccessfulRegistration()
         {
+            labelOutcome.Visible = false;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void RegisterView_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
