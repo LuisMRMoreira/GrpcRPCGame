@@ -95,7 +95,6 @@ namespace GrpcClientWindowsForms.Views
             EnablePlayButtons();
         }
 
-
         // No caso de ocorrer algum problema com a conexão é chamado este método, que tem como função esconder e repor esta view
         public void ResetAndHide()
         {

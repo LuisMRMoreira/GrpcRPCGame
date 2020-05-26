@@ -30,6 +30,7 @@ namespace GrpcClientWindowsForms.Views
 
         public void ResetView()
         {
+            labelOutcome.Visible = false;
             textboxUsername.Text = "";
             textboxPassword.Text = "";
             buttonLogin.Enabled = false;
@@ -39,8 +40,8 @@ namespace GrpcClientWindowsForms.Views
         {
             ResetView();
 
-            // TODO: Create label to show error
-
+            labelOutcome.Text = errorMessage;
+            labelOutcome.Visible = true;
         }
     }
 }

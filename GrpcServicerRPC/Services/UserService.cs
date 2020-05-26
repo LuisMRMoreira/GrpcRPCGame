@@ -10,6 +10,8 @@ using GrpcServerRPS.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace GrpcServerRPS.Services
 {
@@ -28,9 +30,16 @@ namespace GrpcServerRPS.Services
         {
             UserLoginModel output = new UserLoginModel();
 
-            // Fazer as verificações necessárias na base de dados.
+            // Transformação de todos os carateres do nome para upper case
+            string username = request.Username.ToUpper();
 
-            Models.User u = _context.User.FirstOrDefault(u => u.Username == request.Username && u.Password == request.Password);
+            // Encriptação da password
+            SHA512 sha512 = SHA512Managed.Create();
+            byte[] bytes = sha512.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+            string password = Convert.ToBase64String(bytes);
+
+            // Fazer as verificações necessárias na base de dados.
+            Models.User u = _context.User.FirstOrDefault(u => u.Username == request.Username && u.Password == password);
 
             if (u == null)
             { 
@@ -71,10 +80,14 @@ namespace GrpcServerRPS.Services
         {
             UserRegistModel output = new UserRegistModel();
 
+            // Transformação dos carateres do email e username para upper case
+            string email = request.Email.ToUpper();
+            string username = request.Username.ToUpper();
+
             // Fazer as verificações necessárias na base de dados.
             Models.User u1 = new Models.User(), u2 = new Models.User();
-            u1 = _context.User.FirstOrDefault(u => u.Username == request.Username);
-            u2 = _context.User.FirstOrDefault(u => u.Email == request.Email);
+            u1 = _context.User.FirstOrDefault(u => u.Username == username);
+            u2 = _context.User.FirstOrDefault(u => u.Email == email);
 
             if (u1 != null)
             {
@@ -89,11 +102,16 @@ namespace GrpcServerRPS.Services
             }
             else
             {
+                // Encriptação da password
+                SHA512 sha512 = SHA512Managed.Create();
+                byte[] bytes = sha512.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+                string password = Convert.ToBase64String(bytes);
+
                 Models.User u = new Models.User
                 {
-                    Username = request.Username,
-                    Email = request.Email,
-                    Password = request.Password
+                    Username = username,
+                    Email = email,
+                    Password = password
                 };
 
                 // verifica e garante que a BD existe

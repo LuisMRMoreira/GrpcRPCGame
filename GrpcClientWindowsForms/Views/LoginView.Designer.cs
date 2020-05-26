@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelOutcome = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -93,11 +94,21 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
+            // labelOutcome
+            // 
+            this.labelOutcome.AutoSize = true;
+            this.labelOutcome.Location = new System.Drawing.Point(157, 79);
+            this.labelOutcome.Name = "labelOutcome";
+            this.labelOutcome.Size = new System.Drawing.Size(0, 15);
+            this.labelOutcome.TabIndex = 7;
+            this.labelOutcome.Visible = false;
+            // 
             // LoginView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(368, 174);
+            this.Controls.Add(this.labelOutcome);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.label2);
@@ -120,5 +131,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelOutcome;
     }
 }

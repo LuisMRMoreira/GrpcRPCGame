@@ -86,10 +86,5 @@ namespace GrpcClientWindowsForms.Views
             buttonLogin.Enabled = true;
             buttonLogin.Visible = true;
         }
-
-        public void ShowError(int errorCode)
-        {
-
-        }
     }
 }
