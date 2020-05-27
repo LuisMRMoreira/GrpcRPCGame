@@ -95,6 +95,14 @@ namespace GrpcClientWindowsForms.Views
             EnablePlayButtons();
         }
 
+        public void ShowStats(int plays, int wins, int ties, int losses)
+        {
+            textboxGamesPlayed.Text = plays.ToString();
+            textboxWins.Text = wins.ToString();
+            textboxTies.Text = ties.ToString();
+            textboxLosses.Text = losses.ToString();
+        }
+
         // No caso de ocorrer algum problema com a conexão é chamado este método, que tem como função esconder e repor esta view
         public void ResetAndHide()
         {

@@ -17,9 +17,30 @@ namespace GrpcClientWindowsForms.Views
             InitializeComponent();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                ResetView();
+            }
+        }
+
         private void ButtonLogin_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrWhiteSpace(textboxUsername.Text) || String.IsNullOrWhiteSpace(textboxPassword.Text))
+            {
+                ShowError("Please fill all the fields!");
+                return;
+            }
+
             LoginRequest?.Invoke(textboxUsername.Text, textboxPassword.Text);
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            ResetView();
         }
 
         public void SuccessfulLogin()
@@ -33,7 +54,6 @@ namespace GrpcClientWindowsForms.Views
             labelOutcome.Visible = false;
             textboxUsername.Text = "";
             textboxPassword.Text = "";
-            buttonLogin.Enabled = false;
         }
 
         public void ShowError(string errorMessage)
@@ -42,6 +62,6 @@ namespace GrpcClientWindowsForms.Views
 
             labelOutcome.Text = errorMessage;
             labelOutcome.Visible = true;
-        }
+        }    
     }
 }

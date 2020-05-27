@@ -1,4 +1,5 @@
 ﻿using Grpc.Net.Client;
+using GrpcClientWindowsForms.Views;
 using GrpcServerRPS;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace GrpcClientWindowsForms.Controllers
                     throw new UserNotFoundException();
                 }
 
-                // TODO: Carregar stats para a view
+                Program.PlayView.ShowStats(stats.GamesPlayed, stats.Wins, stats.Draws, stats.Losts);
             }
             // No caso de não existir o utilizador na base de dados com o ID de sessão
             catch (UserNotFoundException)
@@ -88,6 +89,27 @@ namespace GrpcClientWindowsForms.Controllers
             }
             // No caso de a conexão falhar é apanhada a exceção respetiva, e é apresentada uma mensagem de erro na view
             catch (Grpc.Core.RpcException)
+            {
+                Program.PlayView.ResetAndHide();
+                Program.ConnectController.ConnectionError();
+                return;
+            }
+
+
+            // Após ter sido feito o pedido para jogar, é feito o pedido para obter os stats do jogador, para serem mostrados
+            // a medida que o utilizador vai jogando
+            try
+            {
+                StatsLookupModel statsRequest = new StatsLookupModel
+                {
+                    SessionId = Program.AuthUser.SessionID
+                };
+
+                var outcome = await PlayClient.StatsAsync(statsRequest);
+
+                Program.PlayView.ShowStats(outcome.GamesPlayed, outcome.Wins, outcome.Draws, outcome.Losts);
+            }
+            catch(Grpc.Core.RpcException)
             {
                 Program.PlayView.ResetAndHide();
                 Program.ConnectController.ConnectionError();

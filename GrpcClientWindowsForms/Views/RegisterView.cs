@@ -17,14 +17,31 @@ namespace GrpcClientWindowsForms.Views
             InitializeComponent();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                ResetView();
+            }
+        }
+
         public void ShowError(string error)
         {
             labelOutcome.Text = error;
             labelOutcome.Visible = true;
         }
 
-        private void buttonRegister_Click(object sender, EventArgs e)
+        private void ButtonRegister_Click(object sender, EventArgs e)
         {
+            // Para reduzir o número de pedidos desnecessários, apenas é enviado um pedido ao servidor se todos os campos forem preenchidos
+            if (String.IsNullOrWhiteSpace(textboxUsername.Text) || String.IsNullOrWhiteSpace(textboxEmail.Text) || String.IsNullOrWhiteSpace(textboxPassword.Text) || String.IsNullOrWhiteSpace(textboxPasswordConfirmation.Text))
+            {
+                ShowError("Please fill all the fields!");
+                return;
+            }
+
             RegisterRequest?.Invoke(textboxUsername.Text, textboxEmail.Text, textboxPassword.Text, textboxPasswordConfirmation.Text);
         }
 
@@ -33,6 +50,16 @@ namespace GrpcClientWindowsForms.Views
             labelOutcome.Visible = false;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        public void ResetView()
+        {
+            textboxUsername.Text = "";
+            textboxEmail.Text = "";
+            textboxPassword.Text = "";
+            textboxPasswordConfirmation.Text = "";
+            labelOutcome.Text = "";
+            labelOutcome.Visible = false;
         }
 
         private void RegisterView_Load(object sender, EventArgs e)
