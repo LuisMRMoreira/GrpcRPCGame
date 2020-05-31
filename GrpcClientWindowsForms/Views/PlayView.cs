@@ -23,6 +23,7 @@ namespace GrpcClientWindowsForms.Views
             GRPCStartRequest?.Invoke();
         }
 
+        // No caso de o utilizador clicar no X para fechar a form, esta é escondida e é apresentada a view de autenticação
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -30,7 +31,7 @@ namespace GrpcClientWindowsForms.Views
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
-                Hide();
+                ResetAndHide();
                 Program.AuthView.Show();
             }
         }

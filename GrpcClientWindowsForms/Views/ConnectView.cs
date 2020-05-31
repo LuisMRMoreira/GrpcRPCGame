@@ -18,6 +18,7 @@ namespace GrpcClientWindowsForms.Views
             InitializeComponent();
         }
 
+        // Como este é a primeira view a ser apresentada, quando é fechada, devem ser fechadas todas as outras views do cliente
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -55,45 +56,11 @@ namespace GrpcClientWindowsForms.Views
         }
 
         // Usado para mostrar erros nas views, se ocorrerem durante o processo de conexão ao servidor
-        // Código de erros:
-        //     -1 - A conexão já foi estabelecida com sucesso e o cliente está a tentar estabeler a conexão de novo
-        //     -2 - O endereço inserido pelo cliente é inválido
-        //     -3 - Não foi possível estabeler conexão com o servidor com o endereço inserido
-        //     -4 - O utilizador autenticado no cliente não existe na base de dados do servidor
-        public void ShowError(int error)
+        public void ShowError(string error)
         {
-            switch (error)
-            {
-                case -1:
-                    SuccessfulConnection();
-                    break;
-                case -2:
-                    RestartView();
-                    labelOutcome.Text = "-2: Invalid address!";
-                    labelOutcome.Visible = true;
-                    break;
-                case -3:
-                    RestartView();
-                    labelOutcome.Text = "-3: Connection failed!";
-                    labelOutcome.Visible = true;
-                    break;
-                case -4:
-                    RestartView();
-                    labelOutcome.Text = "-4: User not found!";
-                    labelOutcome.Visible = true;
-                    break;
-                default:
-                    RestartView();
-                    labelOutcome.Text = "Unknown error!";
-                    labelOutcome.Visible = true;
-                    break;
-            }
-        }
-
-        // Método usado para abrir a view que pode ser chamado por controllers
-        public void OpenIfClosed()
-        {
-            Show();
+            RestartView();
+            labelOutcome.Text = error;
+            labelOutcome.Visible = true;
         }
 
         // Operações na view sempre que a conexão for feita com sucesso

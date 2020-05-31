@@ -5,6 +5,7 @@ using System.Text;
 
 namespace GrpcClientWindowsForms
 {
+    // Guarda os dados do utilizador que está autenticado na view
     class AuthenticatedUser
     {
         public string SessionID { get; private set; }

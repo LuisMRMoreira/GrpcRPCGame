@@ -17,6 +17,7 @@ namespace GrpcClientWindowsForms.Views
             InitializeComponent();
         }
 
+        // Sempre que esta view é fechada pelo utilizador, é sempre reposta para o estado inicial
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -27,12 +28,7 @@ namespace GrpcClientWindowsForms.Views
             }
         }
 
-        public void ShowError(string error)
-        {
-            labelOutcome.Text = error;
-            labelOutcome.Visible = true;
-        }
-
+     
         private void ButtonRegister_Click(object sender, EventArgs e)
         {
             // Para reduzir o número de pedidos desnecessários, apenas é enviado um pedido ao servidor se todos os campos forem preenchidos
@@ -45,11 +41,19 @@ namespace GrpcClientWindowsForms.Views
             RegisterRequest?.Invoke(textboxUsername.Text, textboxEmail.Text, textboxPassword.Text, textboxPasswordConfirmation.Text);
         }
 
+        // No caso de o registo ser feito com sucesso, é fechada a view com DialogResult OK
         public void SuccessfulRegistration()
         {
             labelOutcome.Visible = false;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        // Apresenta erros na view
+        public void ShowError(string error)
+        {
+            labelOutcome.Text = error;
+            labelOutcome.Visible = true;
         }
 
         public void ResetView()
@@ -60,11 +64,6 @@ namespace GrpcClientWindowsForms.Views
             textboxPasswordConfirmation.Text = "";
             labelOutcome.Text = "";
             labelOutcome.Visible = false;
-        }
-
-        private void RegisterView_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

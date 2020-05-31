@@ -107,7 +107,7 @@
             // textboxClientPlay
             // 
             this.textboxClientPlay.Enabled = false;
-            this.textboxClientPlay.Location = new System.Drawing.Point(43, 110);
+            this.textboxClientPlay.Location = new System.Drawing.Point(43, 50);
             this.textboxClientPlay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textboxClientPlay.Name = "textboxClientPlay";
             this.textboxClientPlay.Size = new System.Drawing.Size(171, 23);
@@ -116,7 +116,7 @@
             // textboxServerPlay
             // 
             this.textboxServerPlay.Enabled = false;
-            this.textboxServerPlay.Location = new System.Drawing.Point(43, 50);
+            this.textboxServerPlay.Location = new System.Drawing.Point(43, 110);
             this.textboxServerPlay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textboxServerPlay.Name = "textboxServerPlay";
             this.textboxServerPlay.Size = new System.Drawing.Size(171, 23);
@@ -162,6 +162,7 @@
             // 
             // textboxLosses
             // 
+            this.textboxLosses.Enabled = false;
             this.textboxLosses.Location = new System.Drawing.Point(107, 143);
             this.textboxLosses.Name = "textboxLosses";
             this.textboxLosses.Size = new System.Drawing.Size(100, 23);
@@ -169,6 +170,7 @@
             // 
             // textboxTies
             // 
+            this.textboxTies.Enabled = false;
             this.textboxTies.Location = new System.Drawing.Point(107, 107);
             this.textboxTies.Name = "textboxTies";
             this.textboxTies.Size = new System.Drawing.Size(100, 23);
@@ -176,6 +178,7 @@
             // 
             // textboxWins
             // 
+            this.textboxWins.Enabled = false;
             this.textboxWins.Location = new System.Drawing.Point(107, 71);
             this.textboxWins.Name = "textboxWins";
             this.textboxWins.Size = new System.Drawing.Size(100, 23);
@@ -183,6 +186,7 @@
             // 
             // textboxGamesPlayed
             // 
+            this.textboxGamesPlayed.Enabled = false;
             this.textboxGamesPlayed.Location = new System.Drawing.Point(107, 32);
             this.textboxGamesPlayed.Name = "textboxGamesPlayed";
             this.textboxGamesPlayed.Size = new System.Drawing.Size(100, 23);

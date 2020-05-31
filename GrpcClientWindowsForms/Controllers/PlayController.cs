@@ -9,6 +9,7 @@ namespace GrpcClientWindowsForms.Controllers
 {
     class PlayController
     {
+        // Cliente gRPC responsável por tratar das operações de jogar e estatísticas
         public static Game.GameClient PlayClient { get; private set; }
 
 
@@ -44,28 +45,22 @@ namespace GrpcClientWindowsForms.Controllers
                 return;
             }
 
-            try 
-            {
-                // Se o número de jogados for -1 significa que o utilizador com o ID de sessão não existe no servidor
-                if (stats.GamesPlayed == -1)
-                {
-                    throw new UserNotFoundException();
-                }
 
-                Program.PlayView.ShowStats(stats.GamesPlayed, stats.Wins, stats.Draws, stats.Losts);
-            }
-            // No caso de não existir o utilizador na base de dados com o ID de sessão
-            catch (UserNotFoundException)
+            // Se o número de jogados for -1 significa que o utilizador com o ID de sessão não existe no servidor
+            if (stats.GamesPlayed == -1)
             {
                 Program.ConnectController.UserNotFound();
                 return;
             }
-       
+
+
             // Se a conexão for feita com sucesso, são carregadas as estatísticas para a view, e são ativados os butões para jogar
+            Program.PlayView.ShowStats(stats.GamesPlayed, stats.Wins, stats.Draws, stats.Losts);            
             Program.PlayView.EnablePlayButtons();
             return;
         }
 
+        // Método usado para realizar uma jogada
         private async void Play(int play)
         {
             // Se o client estiver a null, significa que ocorreu algum erro, e é finalizada a conexão
@@ -109,7 +104,8 @@ namespace GrpcClientWindowsForms.Controllers
 
                 Program.PlayView.ShowStats(outcome.GamesPlayed, outcome.Wins, outcome.Draws, outcome.Losts);
             }
-            catch(Grpc.Core.RpcException)
+            // No caso de a conexão falhar
+            catch (Grpc.Core.RpcException)
             {
                 Program.PlayView.ResetAndHide();
                 Program.ConnectController.ConnectionError();

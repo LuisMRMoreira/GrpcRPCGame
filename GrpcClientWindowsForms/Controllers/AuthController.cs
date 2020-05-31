@@ -136,11 +136,12 @@ namespace GrpcClientWindowsForms.Controllers
             Program.LoginView.SuccessfulLogin();
         }
 
-        // Se for necessário finalizar a conexão, devido a algum erro ou por opção do utilizador, é apagar as informações do utilizador que
+        // Se for necessário finalizar a conexão, devido a algum erro ou por opção do utilizador, é apagado as informações do utilizador que
         // está autenticado e é reposto o client usado para a autenticação
         public void EndConnection()
         {
             Program.ResetAuthenticatedUser();
+            Program.AuthView.ResetView();
             AuthClient = null;
         }
     }

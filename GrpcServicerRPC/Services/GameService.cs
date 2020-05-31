@@ -35,7 +35,7 @@ namespace GrpcServerRPS.Services
             }
 
             History h = _context.History.Include(i => i.User).FirstOrDefault(u => u.userId == user.Id);
-            if (h == null) // No caso do utilizador nunca ter jogado
+            if (h == null) // No caso do utilizador nunca ter jogado, criamos uma linha na tabela de estatísticas para este
             {
                 _context.Database.EnsureCreated();
 
@@ -154,7 +154,7 @@ namespace GrpcServerRPS.Services
             }
 
             History h = _context.History.FirstOrDefault(u => u.userId == user.Id);
-            if (h == null) // No caso do utilizador nunca ter jogado, cria-se uma entrada.
+            if (h == null) // No caso do utilizador nunca ter jogado, cria-se uma entrada na base de dados para este jogador.
             {
                 _context.Database.EnsureCreated();
 
@@ -179,7 +179,5 @@ namespace GrpcServerRPS.Services
 
             return Task.FromResult(output);
         }
-
-
     }
 }

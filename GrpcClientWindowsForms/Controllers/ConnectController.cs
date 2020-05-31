@@ -18,11 +18,13 @@ namespace GrpcClientWindowsForms.Controllers
             Program.ConnectView.RestartConnectionRequest += EndConnection;
         }
 
+        // Método usado para criar uma conexão com o servidor e testar a conexão
         private async void ConnectToServer(string address)
         {
+            // Se a conexão já tiver sido estabelecida, é retornado uma mensagem de sucesso para a view
             if (TestChannel != null || ConnectClient != null)
             {
-                Program.ConnectView.ShowError(-1);
+                Program.ConnectView.SuccessfulConnection();
                 return;
             }
 
@@ -36,13 +38,15 @@ namespace GrpcClientWindowsForms.Controllers
             // No caso de o endereço especificado ter um formato errado
             catch (UriFormatException)
             {
-                Program.ConnectView.ShowError(-2);
+                EstablishingConnectionFailed();
+                Program.ConnectView.ShowError("Invalid address!");
                 return;
             }
             // No caso de não ter sido especificado um endereço
             catch (ArgumentNullException)
             {
-                Program.ConnectView.ShowError(-2);
+                EstablishingConnectionFailed();
+                Program.ConnectView.ShowError("Invalid address!");
                 return;
             }
 
@@ -59,8 +63,8 @@ namespace GrpcClientWindowsForms.Controllers
             // No caso de a conexão falhar é apanhada a exceção respetiva, e é apresentada uma mensagem de erro na view
             catch (Grpc.Core.RpcException)
             {
-                EndConnection();
-                Program.ConnectView.ShowError(-3);
+                EstablishingConnectionFailed();
+                Program.ConnectView.ShowError("Connection failed!");
                 return;
             }
 
@@ -89,15 +93,22 @@ namespace GrpcClientWindowsForms.Controllers
         public void ConnectionError()
         {
             EndConnection();
-            Program.ConnectView.OpenIfClosed();
-            Program.ConnectView.ShowError(-3);
+            Program.ConnectView.Show();
+            Program.ConnectView.ShowError("Connection failed!");
         }
 
         // Método que é chamado sempre que o utilizador autenticado com o cliente não existir no servidor
         public void UserNotFound()
         {
             EndConnection();
-            Program.ConnectView.ShowError(-4);
+            Program.ConnectView.ShowError("User not found!");
+        }
+
+        // No caso da conexão inicial falhar, é usado este método para repor o canal e cliente usados para o teste de conexão
+        public void EstablishingConnectionFailed()
+        {
+            TestChannel = null;
+            ConnectClient = null;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace GrpcClientWindowsForms.Views
             InitializeComponent();
         }
 
+        // Sempre que esta view é fechada, esta é reposta para o estado inicial
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -29,6 +30,7 @@ namespace GrpcClientWindowsForms.Views
 
         private void ButtonLogin_Click(object sender, EventArgs e)
         {
+            // Apenas envia pedido para o servidor se o utilizador preencher todos os campos de autenticação
             if (String.IsNullOrWhiteSpace(textboxUsername.Text) || String.IsNullOrWhiteSpace(textboxPassword.Text))
             {
                 ShowError("Please fill all the fields!");

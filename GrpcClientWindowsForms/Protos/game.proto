@@ -36,5 +36,4 @@ message StatsModel {
 	int32 wins = 2;
 	int32 draws = 3;
 	int32 losts = 4;
-
 }

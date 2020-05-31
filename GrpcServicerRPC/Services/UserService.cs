@@ -67,7 +67,7 @@ namespace GrpcServerRPS.Services
                         u.GenerateSessionID();
                         _context.SaveChanges();
                     }
-                    // Exceção que é lançada sempre que é quebrado o constraint UNIQUE do ID de sessão, no caso do ID de sessão gerada já existir
+                    // Exceção que é lançada sempre que é quebrado o constraint UNIQUE do ID de sessão, no caso do ID de sessão gerado já existir
                     catch (DbUpdateException e) when (e.InnerException is SqlException sqlEx && (sqlEx.Number == 2627 || sqlEx.Number == 2601))
                     {
                         success = false;
@@ -109,7 +109,7 @@ namespace GrpcServerRPS.Services
                 if (u2 == null)
                     output.Valid = -3; // Um utilizador tem apenas o mesmo username
                 else
-                    output.Valid = -1; // Um username tem o mesmo username e email
+                    output.Valid = -1; // Um utilizador tem o mesmo username e email
             }
             // Um utilizador tem o mesmo email
             else if (u2 != null)
