@@ -15,7 +15,7 @@ O cliente é um projeto do tipo Console Application (.Net core) (No futuro: Wind
 Para adicionar um projeto existente a um repositório já criado no gitHub, no visual studio clica-se em File> Add to source control > Team explorer
 
 *********************************************************************************************************
-                                                      Nova versão
+                                                      **Nova versão**
 *********************************************************************************************************
 
 Criação de sistema de crétidos com Node.js. Os utilizadores, para jograrem, têm de pedir ao sistema de créditos um certo número de créditos para que depois o apresente ao servidor. O servidor, tem de validar essa forma de pagamento. Isto é tudo feito através de uma API rest desenvolvida em Node.js, com uma base de dados criada em mongoDB.
