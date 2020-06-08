@@ -20,6 +20,13 @@ Para adicionar um projeto existente a um repositório já criado no gitHub, no v
 
 Criação de sistema de crétidos com Node.js. Os utilizadores, para jograrem, têm de pedir ao sistema de créditos um certo número de créditos para que depois o apresente ao servidor. O servidor, tem de validar essa forma de pagamento. Isto é tudo feito através de uma API rest desenvolvida em Node.js, com uma base de dados criada em mongoDB.
 
-- [Criar base de dados local, em mongoDB;](https://www.youtube.com/watch?v=wM7NJtQ0F6U) 
-- [Criar API rest em Node.js (adicionar conexão a uma base de dados mongoDB online);](https://www.youtube.com/watch?v=vjf774RKrLc)
+- [Criar base de dados local, em mongoDB;](https://www.youtube.com/watch?v=wM7NJtQ0F6U)
+- A base de dados foi criada online através da plataforma [MongoDb Atlas](https://account.mongodb.com/account/login?signedOut=true). Com base no [tutorial](https://www.youtube.com/watch?v=KKyag6t98g8). A conexão foi feita como a descrita na ponto abaixo;
+- [Criar API rest em Node.js (adicionar conexão a uma base de dados mongoDB online)](https://www.youtube.com/watch?v=vjf774RKrLc);
 - Acesso a uma API através da Framework .Net core. Através da classe [HttpClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1) é possível aceder à API criada. [Tutorial](https://www.yogihosting.com/aspnet-core-consume-api/).
+
+
+**JSON Schema noções:**
+- [Mongoose: Schema types](https://mongoosejs.com/docs/4.x/docs/schematypes.html);
+- [Mongoose: Schema geral](https://mongoosejs.com/docs/guide.html);
+- [Schema geral](https://json-schema.org/understanding-json-schema/).
