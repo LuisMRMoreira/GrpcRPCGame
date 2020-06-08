@@ -22,4 +22,4 @@ Criação de sistema de crétidos com Node.js. Os utilizadores, para jograrem, t
 
 - [Criar base de dados local, em mongoDB;](https://www.youtube.com/watch?v=wM7NJtQ0F6U) 
 - [Criar API rest em Node.js (adicionar conexão a uma base de dados mongoDB online);](https://www.youtube.com/watch?v=vjf774RKrLc)
-- Acesso a uma API através da Framework .Net core. Tutoriais [na pagina da microsoft](https://docs.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-aspnet-core-ef-step-04?view=vs-2019) ou [no youtube](https://www.youtube.com/watch?v=Vg9gDsfV7Oo).
+- Acesso a uma API através da Framework .Net core. Através da classe [HttpClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1) é possível aceder à API criada. [Tutorial](https://www.yogihosting.com/aspnet-core-consume-api/).
