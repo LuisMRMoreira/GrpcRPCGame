@@ -30,3 +30,6 @@ Criação de sistema de crétido: Evolução da aplicação desenvolvida anterio
 - [Mongoose: Schema types](https://mongoosejs.com/docs/4.x/docs/schematypes.html);
 - [Mongoose: Schema geral](https://mongoosejs.com/docs/guide.html);
 - [Schema geral](https://json-schema.org/understanding-json-schema/).
+
+
+Para testar a API foi utilizada a pataforma [Postman](https://www.postman.com/).
