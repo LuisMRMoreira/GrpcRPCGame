@@ -15,10 +15,10 @@ O cliente é um projeto do tipo Console Application (.Net core) (No futuro: Wind
 Para adicionar um projeto existente a um repositório já criado no gitHub, no visual studio clica-se em File> Add to source control > Team explorer
 
 *********************************************************************************************************
-                                                      **Nova versão**
+                                                      Nova versão
 *********************************************************************************************************
 
-Criação de sistema de crétidos com Node.js. Os utilizadores, para jograrem, têm de pedir ao sistema de créditos um certo número de créditos para que depois o apresente ao servidor. O servidor, tem de validar essa forma de pagamento. Isto é tudo feito através de uma API rest desenvolvida em Node.js, com uma base de dados criada em mongoDB.
+Criação de sistema de crétido: Evolução da aplicação desenvolvida anteriormente (Comunicação simples com base na ferramente gRPC), acrescentando o acesso a uma API restfull de um sistema de créditos desenvolvida em Node.js. Os utilizadores, para jograrem, têm de pedir ao sistema de créditos um certo número para que possam apresente ao servidor. O servidor, tem de validar essa forma de pagamento. Isto é tudo feito através de uma API rest desenvolvida em Node.js, com uma base de dados criada em mongoDB.
 
 - [Criar base de dados local, em mongoDB;](https://www.youtube.com/watch?v=wM7NJtQ0F6U)
 - A base de dados foi criada online através da plataforma [MongoDb Atlas](https://account.mongodb.com/account/login?signedOut=true). Com base no [tutorial](https://www.youtube.com/watch?v=KKyag6t98g8). A conexão foi feita como a descrita na ponto abaixo;
