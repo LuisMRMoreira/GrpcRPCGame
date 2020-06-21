@@ -35,11 +35,15 @@
             this.labelWelcome = new System.Windows.Forms.Label();
             this.textboxWelcome = new System.Windows.Forms.TextBox();
             this.labelOutcome = new System.Windows.Forms.Label();
+            this.Button_gotoCreditBank = new System.Windows.Forms.Button();
+            this.reference_textBox = new System.Windows.Forms.TextBox();
+            this.insertReference_label = new System.Windows.Forms.Label();
+            this.invalidReference_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonRegister
             // 
-            this.buttonRegister.Location = new System.Drawing.Point(103, 162);
+            this.buttonRegister.Location = new System.Drawing.Point(103, 194);
             this.buttonRegister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(118, 49);
@@ -50,7 +54,7 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(251, 162);
+            this.buttonLogin.Location = new System.Drawing.Point(251, 194);
             this.buttonLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(118, 49);
@@ -68,7 +72,7 @@
             // 
             // buttonPlay
             // 
-            this.buttonPlay.Location = new System.Drawing.Point(173, 162);
+            this.buttonPlay.Location = new System.Drawing.Point(100, 192);
             this.buttonPlay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(118, 49);
@@ -101,15 +105,62 @@
             this.labelOutcome.AutoSize = true;
             this.labelOutcome.Location = new System.Drawing.Point(212, 120);
             this.labelOutcome.Name = "labelOutcome";
-            this.labelOutcome.Size = new System.Drawing.Size(33, 15);
+            this.labelOutcome.Size = new System.Drawing.Size(0, 15);
             this.labelOutcome.TabIndex = 3;
             this.labelOutcome.Visible = false;
+            // 
+            // Button_gotoCreditBank
+            // 
+            this.Button_gotoCreditBank.Location = new System.Drawing.Point(248, 192);
+            this.Button_gotoCreditBank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Button_gotoCreditBank.Name = "Button_gotoCreditBank";
+            this.Button_gotoCreditBank.Size = new System.Drawing.Size(118, 49);
+            this.Button_gotoCreditBank.TabIndex = 0;
+            this.Button_gotoCreditBank.Text = "Credit bank";
+            this.Button_gotoCreditBank.UseVisualStyleBackColor = true;
+            this.Button_gotoCreditBank.Visible = false;
+            this.Button_gotoCreditBank.Click += new System.EventHandler(this.Button_gotoCreditBank_Click);
+            // 
+            // reference_textBox
+            // 
+            this.reference_textBox.Location = new System.Drawing.Point(154, 149);
+            this.reference_textBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.reference_textBox.Name = "reference_textBox";
+            this.reference_textBox.Size = new System.Drawing.Size(159, 23);
+            this.reference_textBox.TabIndex = 2;
+            this.reference_textBox.Visible = false;
+            // 
+            // insertReference_label
+            // 
+            this.insertReference_label.AutoSize = true;
+            this.insertReference_label.ForeColor = System.Drawing.Color.Maroon;
+            this.insertReference_label.Location = new System.Drawing.Point(56, 124);
+            this.insertReference_label.Name = "insertReference_label";
+            this.insertReference_label.Size = new System.Drawing.Size(359, 15);
+            this.insertReference_label.TabIndex = 1;
+            this.insertReference_label.Text = "In order to play, please, isnert a valid reference (amount: 20 credits)";
+            this.insertReference_label.Visible = false;
+            // 
+            // invalidReference_label
+            // 
+            this.invalidReference_label.AutoSize = true;
+            this.invalidReference_label.ForeColor = System.Drawing.Color.Maroon;
+            this.invalidReference_label.Location = new System.Drawing.Point(4, 11);
+            this.invalidReference_label.Name = "invalidReference_label";
+            this.invalidReference_label.Size = new System.Drawing.Size(185, 15);
+            this.invalidReference_label.TabIndex = 1;
+            this.invalidReference_label.Text = "Invalid reference. Please try again.";
+            this.invalidReference_label.Visible = false;
             // 
             // AuthView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 255);
+            this.Controls.Add(this.invalidReference_label);
+            this.Controls.Add(this.insertReference_label);
+            this.Controls.Add(this.reference_textBox);
+            this.Controls.Add(this.Button_gotoCreditBank);
             this.Controls.Add(this.labelOutcome);
             this.Controls.Add(this.textboxWelcome);
             this.Controls.Add(this.labelWelcome);
@@ -135,5 +186,9 @@
         private System.Windows.Forms.Label labelWelcome;
         private System.Windows.Forms.TextBox textboxWelcome;
         private System.Windows.Forms.Label labelOutcome;
+        private System.Windows.Forms.Button Button_gotoCreditBank;
+        private System.Windows.Forms.TextBox reference_textBox;
+        private System.Windows.Forms.Label insertReference_label;
+        private System.Windows.Forms.Label invalidReference_label;
     }
 }

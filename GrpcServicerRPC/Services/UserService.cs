@@ -12,7 +12,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Net.Http;
+using System.Text.Json;
+using GrpcClientWindowsForms.Models;
+using GrpcServerRPS.APICommunication;
 
 namespace GrpcServerRPS.Services
 {
@@ -33,7 +36,7 @@ namespace GrpcServerRPS.Services
          * Sempre que o login é feito com sucesso, é enviado um ID de sessão único para o cliente
          * que é usado por este para se identificar sempre que envia algum pedido.
          */
-        public override Task<UserLoginModel> Login(UserLoginLookupModel request, ServerCallContext context)
+        public async override Task<UserLoginModel> Login(UserLoginLookupModel request, ServerCallContext context)
         {
             UserLoginModel output = new UserLoginModel();
 
@@ -66,6 +69,10 @@ namespace GrpcServerRPS.Services
                     {
                         u.GenerateSessionID();
                         _context.SaveChanges();
+
+                        // Altera o id de sessão do cliente, na base de dados da API.
+                        await APIServerCommunication.UserLogin(u.SessionID, u.Id);
+
                     }
                     // Exceção que é lançada sempre que é quebrado o constraint UNIQUE do ID de sessão, no caso do ID de sessão gerado já existir
                     catch (DbUpdateException e) when (e.InnerException is SqlException sqlEx && (sqlEx.Number == 2627 || sqlEx.Number == 2601))
@@ -80,7 +87,7 @@ namespace GrpcServerRPS.Services
                 output.SessionID = u.SessionID;
             }
                 
-            return Task.FromResult(output);
+            return await Task.FromResult(output);
 
         }
 
@@ -90,7 +97,7 @@ namespace GrpcServerRPS.Services
          * Quando é guardado um novo utilizador na base de dados, o email e username são transformados em upper case, e
          * a password é encriptada.
          */
-        public override Task<UserRegistModel> Regist(UserRegistLookupModel request, ServerCallContext context)
+        public async override Task<UserRegistModel> Regist(UserRegistLookupModel request, ServerCallContext context)
         {
             UserRegistModel output = new UserRegistModel();
 
@@ -137,12 +144,31 @@ namespace GrpcServerRPS.Services
                 // Guarda-se o novo utilizador na base de dados
                 _context.User.Add(u);
                 _context.SaveChanges();
-                
+
+                // Regista o utilizador no banco de créditos
+                await APIServerCommunication.RegisterUser(u.Username, u.Id);
+
                 // Envia-se uma mensagem uma mensagem de confirmação de registo ao cliente
                 output.Valid = 1; 
             }
                 
+            return await Task.FromResult(output);
+        }
+
+        public override Task<UserIdByUserSessionIdModel> UserIdByUserSessionId(UserIdByUserSessionIdLookupModel request, ServerCallContext context)
+        {
+            UserIdByUserSessionIdModel output = new UserIdByUserSessionIdModel();
+
+            Models.User u1 = new Models.User();
+            u1 = _context.User.FirstOrDefault(u => u.SessionID == request.SessionID && u.Username == request.Username);
+
+            if (u1 != null)
+                output.UserId = u1.Id;
+            else
+                output.UserId = -1;
+
             return Task.FromResult(output);
+
         }
     }
 }

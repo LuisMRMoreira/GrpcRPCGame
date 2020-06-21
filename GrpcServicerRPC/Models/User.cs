@@ -16,6 +16,7 @@ namespace GrpcServerRPS.Models
         [Required]
         [MaxLength(30)]
         public string Username { get; set; }
+        public int GamesToPlay { get; set; } // Número total de jogos que o cliente pode joagar sem que tenha de comprar mais jogos com creditos.
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         [MaxLength(50)]

@@ -8,6 +8,10 @@ service User {
 
 	rpc Regist (UserRegistLookupModel) returns (UserRegistModel);
 
+	rpc UserIdByUserSessionId (UserIdByUserSessionIdLookupModel) returns (UserIdByUserSessionIdModel);
+
+	rpc GetUserBySessionId (UserGetUserBySessionIdLookupModel) returns (UserGetUserBySessionIdModel);
+
 }
 
 message UserLoginLookupModel {
@@ -25,6 +29,18 @@ message UserRegistLookupModel {
 
 }
 
+message UserIdByUserSessionIdLookupModel {
+	string sessionID = 1;
+	string username = 2;
+}
+
+
+message UserGetUserBySessionIdLookupModel {
+	string sessionID = 1;
+	string username = 2;
+}
+
+
 message UserLoginModel {
 	
 	bool valid = 1;  // True: Login feito com sucesso, False: Utilizador/Password errados
@@ -34,4 +50,16 @@ message UserLoginModel {
 message UserRegistModel {
 	
 	int32 valid = 1;	// 1: Válido, -1: Username já existente, -2: Email já existente, 3: Username e email já existentes
+}
+
+message UserIdByUserSessionIdModel {
+	
+	int32 userId = 1;
+}
+
+message UserGetUserBySessionIdModel {
+	
+	int32 userId = 1;
+	string username = 2;
+	string email = 3;
 }

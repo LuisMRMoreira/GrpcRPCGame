@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200617091552_databaseUpdate.cs" />
+    <Compile Remove="Migrations\20200617091552_databaseUpdate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Protos\game.proto" />
     <None Remove="Protos\user.proto" />
   </ItemGroup>
@@ -24,10 +29,6 @@
     </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

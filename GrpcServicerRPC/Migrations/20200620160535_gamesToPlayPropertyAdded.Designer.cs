@@ -3,14 +3,16 @@ using GrpcServerRPS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GrpcServerRPS.Migrations
 {
     [DbContext(typeof(RPSGameDbContext))]
-    partial class RPSGameDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200620160535_gamesToPlayPropertyAdded")]
+    partial class gamesToPlayPropertyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

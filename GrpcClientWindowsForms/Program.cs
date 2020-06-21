@@ -8,11 +8,16 @@ using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http;
 
 namespace GrpcClientWindowsForms
 {
     static class Program
     {
+        // Definição do url base
+        public static string URL_BASE = "http://localhost:8080/";
+
+
         // Guarda o ID e Username do utilizador que está a usar o cliente
         public static AuthenticatedUser AuthUser { get; private set; }
 
@@ -25,6 +30,8 @@ namespace GrpcClientWindowsForms
         public static LoginView LoginView { get; private set; }
         public static PlayView PlayView { get; private set; }
         public static RegisterView RegisterView { get; private set; }
+        public static CreditBankMenuView CreditBankMenurView { get; private set; }
+        public static CreditBankAuthenticationVIew CreditBankAuthenticationVIew { get; private set; }
 
         // Controllers
         public static AuthController AuthController { get; private set; }
@@ -32,21 +39,29 @@ namespace GrpcClientWindowsForms
         public static PlayController PlayController { get; private set; }
 
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //HttpClient client = new HttpClient();
+            //HttpResponseMessage response = await client.GetAsync("http://localhost:8080/accounts/");
+            //response.EnsureSuccessStatusCode();
+
 
             AuthView = new AuthView();
             ConnectView = new ConnectView();
             LoginView = new LoginView();
             PlayView = new PlayView();
             RegisterView = new RegisterView();
+            CreditBankMenurView = new CreditBankMenuView();
+            CreditBankAuthenticationVIew = new CreditBankAuthenticationVIew();
 
             AuthController = new AuthController();
             ConnectController = new ConnectController();
             PlayController = new PlayController();
+            AuthController = new AuthController();
 
             Application.Run(ConnectView);
         }

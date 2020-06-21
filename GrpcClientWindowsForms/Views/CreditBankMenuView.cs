@@ -1,0 +1,134 @@
+﻿using GrpcClientConsoleApp.Models;
+using GrpcClientWindowsForms.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace GrpcClientWindowsForms.Views
+{
+    public partial class CreditBankMenuView : Form
+    {
+
+        public event APICreateCredinoteRequest APICreateCredinote;
+        public event APIGetDataOnLoadRequest APIGetDataOnLoadRequest;
+
+        public CreditBankMenuView()
+        {
+            InitializeComponent();
+        }
+
+        private void CreditBankMenuView_Load(object sender, EventArgs e)
+        {
+
+            APIGetDataOnLoadRequest?.Invoke(1); // Username
+            APIGetDataOnLoadRequest?.Invoke(2); // CreditNotes by user
+            APIGetDataOnLoadRequest?.Invoke(3); // Historic
+
+        }
+
+        private void createCredit_button_Click(object sender, EventArgs e)
+        {
+
+            if (createCredit_button.Text == "Confirm")
+            {
+                // TODO: Criar uma nova creditnote com o valor indicado, caso seja possível
+                APICreateCredinote?.Invoke( float.Parse(createCreditNoteValue_TextBox.Text));
+                
+                createCredit_button.Text = "Create credit";
+                CreateCreditnote_label.Visible = false;
+                createCreditNoteValue_TextBox.Visible = false;
+                errorMessage_label.Visible = false;
+
+            }
+            else {
+
+                createCredit_button.Text = "Confirm";
+
+                CreateCreditnote_label.Visible = true;
+                createCreditNoteValue_TextBox.Visible = true;
+                errorMessage_label.Visible = true;
+
+            }
+
+
+
+        }
+
+        private void createCreditNoteValue_TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        internal void PopulateCreditNoteTable(List<CreditNote> creditNotes)
+        {
+            creditNotes_listView.Items.Clear();
+            foreach (CreditNote creditnote in creditNotes)
+            {
+                var row = new string[] { creditnote.reference.ToString(), creditnote.amount.ToString(), creditnote.dateExpiry };
+                var lvi = new ListViewItem(row);
+                lvi.Tag = creditnote;
+                if (creditnote.valid)
+                    lvi.BackColor = Color.Red;
+                else
+                    lvi.BackColor = Color.Green;
+
+                creditNotes_listView.Items.Add(lvi);
+
+            }
+
+        }
+
+        internal void PopulateUserData(Account account)
+        {
+            username_label.Text = account.name;
+
+            amount_value_lable.Text = account.amount.ToString() + " €" ;
+
+                
+        }
+
+        internal void PopulateHistoricTable(List<Transaction> transactions)
+        {
+
+            historic_listView.Items.Clear();
+            foreach (Transaction transaction in transactions)
+            {
+                var row = new string[] { transaction.idReceiver, transaction.amount.ToString(), transaction.date }; // TODO: Alterar do id do recetor para o número da conta do receto (ou nome do recetor).
+                var lvi = new ListViewItem(row);
+                lvi.Tag = transaction;
+                historic_listView.Items.Add(lvi);
+
+            }
+
+        }
+
+
+        internal void AddCreditNoteRowToTable(CreditNote creditNote)
+        {
+
+            var row = new string[] { creditNote.reference.ToString(), creditNote.amount.ToString(), creditNote.dateExpiry };
+            var lvi = new ListViewItem(row);
+            lvi.Tag = creditNote;
+            if (creditNote.valid)
+                lvi.BackColor = Color.Red;
+            else
+                lvi.BackColor = Color.Green;
+
+            creditNotes_listView.Items.Add(lvi);
+
+        }
+    }
+}

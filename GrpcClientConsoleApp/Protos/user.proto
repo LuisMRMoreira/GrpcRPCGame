@@ -8,6 +8,8 @@ service User {
 
 	rpc Regist (UserRegistLookupModel) returns (UserRegistModel);
 
+	rpc UserIdByUserSessionId (UserIdByUserSessionIdLookupModel) returns (UserIdByUserSessionIdModel);
+
 }
 
 message UserLoginLookupModel {
@@ -25,17 +27,25 @@ message UserRegistLookupModel {
 
 }
 
+message UserIdByUserSessionIdLookupModel {
+	string sessionID = 1;
+	string username = 2;
+}
+
 message UserLoginModel {
 	
 	bool valid = 1;
 	int32 wihchInvalid = 2; // 0: todos validos (deve estar em concordância com o valid); 1: username; 2: password; 3: ambos.
 	int32 userId = 3;
-
 }
 
 message UserRegistModel {
 	
 	bool valid = 1;
 	int32 wihchInvalid = 2; // 0: todos validos (deve estar em concordância com o valid); 1: username; 2: email; 3: username & email
+}
 
+message UserIdByUserSessionIdModel {
+	
+	int32 userId = 1;
 }
