@@ -14,6 +14,7 @@ namespace GrpcClientWindowsForms.Controllers
     {
 
         public static User.UserClient AuthClient { get; private set; }
+        public static Game.GameClient GameClient { get; private set; }
 
 
         public CreditBankController()
@@ -27,8 +28,29 @@ namespace GrpcClientWindowsForms.Controllers
 
         private async void AuthView_APIValidateReference(string reference)
         {
-            // TODO: Validate reference 
-            if (await APIClientCommunication.validateReference(reference)) // Referencia introduzida válida.
+
+            ValidadeReferenceModel outcome = null;
+
+            try
+            {
+                ValidadeReferenceLookuoModel transactionData = new ValidadeReferenceLookuoModel
+                {
+                    SessionId = Program.AuthUser.SessionID,
+                    Reference = reference
+                };
+
+                outcome = await GameClient.ValidadeReferenceAsync(transactionData);
+
+            }
+            // No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
+            catch (Grpc.Core.RpcException)
+            {
+                Program.ConnectController.ConnectionError();
+                return;
+            }
+
+
+            if (outcome.IsItValid == 1 && outcome != null) // Referencia introduzida válida.
             {
                 Program.AuthView.ValidateReference();
             }

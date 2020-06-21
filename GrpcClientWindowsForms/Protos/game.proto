@@ -8,6 +8,8 @@ service Game {
 
 	rpc Stats (StatsLookupModel) returns (StatsModel);
 
+	rpc ValidadeReference (ValidadeReferenceLookuoModel) returns (ValidadeReferenceModel);
+
 }
 
 message PlayLookupModel {
@@ -23,6 +25,14 @@ message StatsLookupModel {
 	
 }
 
+message ValidadeReferenceLookuoModel {
+	
+	string sessionId = 1;
+	string reference = 2;
+}
+
+
+
 message PlayModel {
 	
 	int32 result = 1; // 0: Empate; 1: Utilizador ganhou; 2: Servidor ganhou; -1: Utilizador não existe
@@ -36,4 +46,10 @@ message StatsModel {
 	int32 wins = 2;
 	int32 draws = 3;
 	int32 losts = 4;
+}
+
+message ValidadeReferenceModel {
+	
+	int32 isItValid = 1;
+	int32 boughtGames = 2;
 }

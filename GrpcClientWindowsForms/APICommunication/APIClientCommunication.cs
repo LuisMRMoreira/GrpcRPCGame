@@ -13,20 +13,10 @@ namespace GrpcServerRPS.APICommunication
     public abstract class APIClientCommunication
     {
 
-        private static string BASE_URL = "http://localhost:8080/";
+        private static string BASE_URL = "http://localhost:8080/api/";
         private static HttpClient client = new HttpClient();
 
-        public async static Task<Boolean> validateReference( string transaction ) {
 
-
-            HttpResponseMessage response = await client.GetAsync(BASE_URL + "accounts/"); // TODO: Verificar se existe a referencia. Caso exista. Faz a transferencia para o servidor e invalida a creditnote.
-            response.EnsureSuccessStatusCode();
-
-            string apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Boolean>(apiResponse);
-
-
-        }
 
         
         public async static Task<Account> GetUserBySessionId(string sessionId)
@@ -67,17 +57,22 @@ namespace GrpcServerRPS.APICommunication
         {
 
             // Criar credit note na API
-            CreditNotePostRequest creditNotePostRequest = new CreditNotePostRequest
-            {
-                amount = amount,
-                userId = sessionId
-            };
+            //CreditNotePostRequest creditNotePostRequest = new CreditNotePostRequest
+            //{
+            //    amount = amount,
+            //    userId = sessionId
+            //};
+            //var myContent = JsonSerializer.Serialize(creditNotePostRequest);
 
-            var myContent = JsonSerializer.Serialize(creditNotePostRequest);
+
+            String json = "{\"sessionId\": \"" + sessionId + "\",\n\"amount\":\"" + amount + "\"}";
+            var myContent = JsonSerializer.Serialize(json);
+            
+            
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
 
-            HttpResponseMessage response = await client.PostAsync(BASE_URL + "accounts/", byteContent); // TODO: Pedido para criar uma nova creditnote para o utilizador atual, com o valor x.
+            HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes", byteContent); // TODO: Pedido para criar uma nova creditnote para o utilizador atual, com o valor x.
             response.EnsureSuccessStatusCode();
 
             string apiResponse = await response.Content.ReadAsStringAsync();

@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using GrpcServerRPS.APICommunication;
 using GrpcServerRPS.Data;
 using GrpcServerRPS.Models;
 using Microsoft.EntityFrameworkCore;
@@ -178,6 +179,35 @@ namespace GrpcServerRPS.Services
             output.Wins = h.win;
 
             return Task.FromResult(output);
+        }
+
+        public async override Task<ValidadeReferenceModel> ValidadeReference(ValidadeReferenceLookuoModel request, ServerCallContext context)
+        {
+            ValidadeReferenceModel output = new ValidadeReferenceModel();
+
+            Models.User user = _context.User.FirstOrDefault(u => u.SessionID == request.SessionId);
+            if (user == null)
+            {
+                output.IsItValid = 0;
+                output.BoughtGames = -1;
+                return await Task.FromResult(output);
+            }
+
+
+            if (await APIServerCommunication.validateReference(request.Reference, user.Id))
+            {
+                output.IsItValid = 1;
+            }
+            else
+            {
+                output.IsItValid = 0;
+            }
+            
+
+            // TODO: Enviar para o cliente os dados do ValidadeReferenceModel, de acordo com aquilo que recebe da API (tem de receber o número de jogos e se é válido)                   
+
+
+            return await Task.FromResult(output);
         }
     }
 }

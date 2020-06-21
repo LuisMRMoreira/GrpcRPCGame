@@ -19,9 +19,6 @@ namespace GrpcServicerRPC
     public class Program
     {
 
-        private static long serverId = 123891273912;
-
-
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
