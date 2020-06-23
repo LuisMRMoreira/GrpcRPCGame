@@ -37,9 +37,10 @@ namespace GrpcClientWindowsForms
         public static AuthController AuthController { get; private set; }
         public static ConnectController ConnectController { get; private set; }
         public static PlayController PlayController { get; private set; }
+        public static CreditBankController CreditBankController { get; private set; }
 
         [STAThread]
-        static async Task Main()
+        static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -62,6 +63,7 @@ namespace GrpcClientWindowsForms
             ConnectController = new ConnectController();
             PlayController = new PlayController();
             AuthController = new AuthController();
+            CreditBankController = new CreditBankController();
 
             Application.Run(ConnectView);
         }

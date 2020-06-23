@@ -12,7 +12,7 @@ namespace GrpcClientConsoleApp.Models
         public double amount { get; set; }
         public string dateCreation { get; set; }
         public string dateExpiry { get; set; }
-        public Boolean valid { get; set; }
+        public Boolean used { get; set; }
 
 
     }

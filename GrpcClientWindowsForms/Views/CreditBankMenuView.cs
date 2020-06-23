@@ -25,8 +25,8 @@ namespace GrpcClientWindowsForms.Views
         {
 
             APIGetDataOnLoadRequest?.Invoke(1); // Username
-            APIGetDataOnLoadRequest?.Invoke(2); // CreditNotes by user
-            APIGetDataOnLoadRequest?.Invoke(3); // Historic
+            //APIGetDataOnLoadRequest?.Invoke(2); // CreditNotes by user
+            //APIGetDataOnLoadRequest?.Invoke(3); // Historic
 
         }
 
@@ -80,7 +80,7 @@ namespace GrpcClientWindowsForms.Views
                 var row = new string[] { creditnote.reference.ToString(), creditnote.amount.ToString(), creditnote.dateExpiry };
                 var lvi = new ListViewItem(row);
                 lvi.Tag = creditnote;
-                if (creditnote.valid)
+                if (creditnote.used)
                     lvi.BackColor = Color.Red;
                 else
                     lvi.BackColor = Color.Green;
@@ -97,7 +97,10 @@ namespace GrpcClientWindowsForms.Views
 
             amount_value_lable.Text = account.amount.ToString() + " €" ;
 
-                
+            if (account.creditNotes != null)
+                PopulateCreditNoteTable(account.creditNotes);
+
+
         }
 
         internal void PopulateHistoricTable(List<Transaction> transactions)
@@ -122,7 +125,7 @@ namespace GrpcClientWindowsForms.Views
             var row = new string[] { creditNote.reference.ToString(), creditNote.amount.ToString(), creditNote.dateExpiry };
             var lvi = new ListViewItem(row);
             lvi.Tag = creditNote;
-            if (creditNote.valid)
+            if (creditNote.used)
                 lvi.BackColor = Color.Red;
             else
                 lvi.BackColor = Color.Green;

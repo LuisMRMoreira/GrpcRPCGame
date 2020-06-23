@@ -21,11 +21,14 @@ namespace GrpcServerRPS.APICommunication
         
         public async static Task<Account> GetUserBySessionId(string sessionId)
         {
-            HttpResponseMessage responseUser = await client.GetAsync(BASE_URL + "accounts/"); // TODO: Get all the information of the user by user session id 
-            responseUser.EnsureSuccessStatusCode();
+            var responseUser = client.GetStreamAsync(BASE_URL + "accounts/session/" + sessionId ); // TODO: Get all the information of the user by user session id 
+            //responseUser.EnsureSuccessStatusCode();
 
-            string apiResponseUser = await responseUser.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Account>(apiResponseUser);
+            //string apiResponseUser = await responseUser.Content.ReadAsStringAsync();
+            var a = await JsonSerializer.DeserializeAsync<ResponseAccountGetBySessionId>(await responseUser);
+
+
+            return a.data;
 
         }
 

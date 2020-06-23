@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GrpcClientConsoleApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,8 +12,8 @@ namespace GrpcClientWindowsForms.Models
         public double amount { get; set; }
         public string date { get; set; }
         public string name { get; set; }
-        public int state { get; set; }
-
+        public Boolean disabled { get; set; }
+        public List<CreditNote> creditNotes { get; set; } 
 
 
     }

@@ -105,7 +105,7 @@ namespace GrpcClientWindowsForms.Controllers
                     break;
                 case 2: // Credit notes by user
 
-                    getCreditnotes();
+                    //getCreditnotes();
 
                     break;
                 case 3: // Historic
