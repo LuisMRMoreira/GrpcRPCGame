@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace GrpcServerRPS.Services
 {
@@ -209,7 +210,20 @@ namespace GrpcServerRPS.Services
                 String rvtp = await APIServerCommunication.transactionToServerByAccountId( user.Id, request.Reference);
 
                 if (rvtp.Contains("success"))
+                {
+                    // Depois de ser feita a transação, do cliente para o servidor, transforma-se o amount em jogos. Para já, cara crédito pago, corresponde a um jogo.
+
+
+                    string numberString = new String(rvtp.Where(Char.IsDigit).ToArray());
+
+                    user.GamesToPlay += Int32.Parse(numberString);
+
+                    _context.SaveChanges();
+
+
+
                     output.IsItValid = 1;
+                }
                 else
                     output.IsItValid = 0;
 

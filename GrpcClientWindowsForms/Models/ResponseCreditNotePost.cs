@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GrpcClientWindowsForms.Models
 {
-    class ResponseCreditNotePost
+    public class ResponseCreditNotePost
     {
         public string status { get; set; }
         public CreditNote data { get; set; }

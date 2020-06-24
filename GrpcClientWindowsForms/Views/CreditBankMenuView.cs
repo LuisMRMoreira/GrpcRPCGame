@@ -52,7 +52,7 @@ namespace GrpcClientWindowsForms.Views
 
                 CreateCreditnote_label.Visible = true;
                 createCreditNoteValue_TextBox.Visible = true;
-                errorMessage_label.Visible = true;
+                errorMessage_label.Visible = false;
 
             }
 
@@ -62,16 +62,16 @@ namespace GrpcClientWindowsForms.Views
 
         private void createCreditNoteValue_TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))//&& (e.KeyChar != '.')
             {
                 e.Handled = true;
             }
 
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            //// only allow one decimal point
+            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //{
+            //    e.Handled = true;
+            //}
         }
 
         internal void PopulateCreditNoteTable(List<CreditNote> creditNotes)
@@ -156,5 +156,13 @@ namespace GrpcClientWindowsForms.Views
             Clipboard.SetText(builder.ToString());
         }
 
+        internal void UnableToCreateCreditNote()
+        {
+            errorMessage_label.Text = "Unable to create a credit note!";
+            createCredit_button.Text = "Confirm";
+            CreateCreditnote_label.Visible = true;
+            createCreditNoteValue_TextBox.Visible = true;
+            errorMessage_label.Visible = true;
+        }
     }
 }

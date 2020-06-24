@@ -59,7 +59,7 @@ namespace GrpcServerRPS.APICommunication
         }
 
         // Testado -> Funciona
-        public async static Task<CreditNote> PostCreateCreditNote(float amount, string sessionId)
+        public async static Task<ResponseCreditNotePost> PostCreateCreditNote(float amount, string sessionId)
         {
 
             // Criar credit note na API
@@ -74,10 +74,10 @@ namespace GrpcServerRPS.APICommunication
             String json = "{\n\"sessionId\": \"" + sessionId + "\",\n\"amount\":" + amount + "\n}";
             var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes", stringContent); // TODO: Pedido para criar uma nova creditnote para o utilizador atual, com o valor x.
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
             
             string apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ResponseCreditNotePost>(apiResponse).data;
+            return JsonSerializer.Deserialize<ResponseCreditNotePost>(apiResponse);
 
         }
 

@@ -140,7 +140,7 @@ namespace GrpcClientWindowsForms.Controllers
 
         // Criar creditnote
         private async void CreditBankMenurView_APICreateCredinote(float amount)
-        { 
+        {
 
             //// Obter o id do utilizador a paritr do id de sessao
             //UserIdByUserSessionIdModel outcome = null;
@@ -163,9 +163,20 @@ namespace GrpcClientWindowsForms.Controllers
             //    return;
             //}
 
+            ResponseCreditNotePost rcnp = await APIClientCommunication.PostCreateCreditNote(amount, Program.AuthUser.SessionID);
 
-            // enviar para a view do menu do banco de créditos para que possa apresentar todas as credirnotes numa lista
-            Program.CreditBankMenurView.AddCreditNoteRowToTable(await APIClientCommunication.PostCreateCreditNote(amount, Program.AuthUser.SessionID));
+            if (rcnp.status.Equals("error"))
+            {
+                Program.CreditBankMenurView.UnableToCreateCreditNote();
+            }
+            else 
+            {
+                // enviar para a view do menu do banco de créditos para que possa apresentar todas as credirnotes numa lista
+                Program.CreditBankMenurView.AddCreditNoteRowToTable(rcnp.data);
+            }
+
+
+
 
         }
 
