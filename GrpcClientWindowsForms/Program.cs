@@ -50,7 +50,6 @@ namespace GrpcClientWindowsForms
             //HttpResponseMessage response = await client.GetAsync("http://localhost:8080/accounts/");
             //response.EnsureSuccessStatusCode();
 
-
             AuthView = new AuthView();
             ConnectView = new ConnectView();
             LoginView = new LoginView();

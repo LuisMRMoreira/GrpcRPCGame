@@ -15,8 +15,50 @@ namespace GrpcClientWindowsForms.Controllers
         public AuthController()
         {
             Program.AuthView.GRPCStartRequest += StartGRPCConnection;
-            Program.LoginView.LoginRequest += Login;
+            Program.LoginView.LoginRequest += LoginView_LoginRequest;
             Program.RegisterView.RegisterRequest += Register;
+        }
+
+        // Método usado para enviar um pedido para o servidor GRPC com o intuito de autenticar um utilizador
+        private void LoginView_LoginRequest(string username, string password)
+        {
+            // Se o client estiver a null, significa que ocorreu algum erro, e é finalizada a conexão
+            if (AuthClient == null)
+            {
+                Program.ConnectController.ConnectionError();
+                return;
+            }
+
+            // Tenta autenticar o utilizador
+            try
+            {
+                UserLoginLookupModel logReq = new UserLoginLookupModel
+                {
+                    Username = username,
+                    Password = password
+                };
+
+                UserLoginModel outcome = AuthClient.Login(logReq);
+
+                // No caso de autenticação falhar, é enviada a mensagem de erro ao utilizador
+                if (outcome.Valid == false)
+                {
+                    Program.LoginView.ShowError("User or/and password do not match any user!");
+                    return;
+                }
+
+                // Se a autenticação for feita com sucesso, é guardado o ID de sessão do Username do utilizador no client
+                Program.SetAuthenticatedUser(outcome.SessionID, username);
+            }
+            // No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
+            catch (Grpc.Core.RpcException)
+            {
+                Program.ConnectController.ConnectionError();
+                return;
+            }
+
+            // O utilizador é avisado que a autenticação foi feita com sucesso
+            Program.LoginView.SuccessfulLogin();
         }
 
         // Método para inicializar o client GRPC usado para a autenticação
@@ -94,47 +136,7 @@ namespace GrpcClientWindowsForms.Controllers
             }     
         }
 
-        // Método usado para enviar um pedido para o servidor GRPC com o intuito de autenticar um utilizador
-        private async void Login(string username, string password)
-        {
-            // Se o client estiver a null, significa que ocorreu algum erro, e é finalizada a conexão
-            if (AuthClient == null)
-            {
-                Program.ConnectController.ConnectionError();
-                return;
-            }
 
-            // Tenta autenticar o utilizador
-            try
-            {
-                UserLoginLookupModel loginRequest = new UserLoginLookupModel
-                {
-                    Username = username,
-                    Password = password
-                };
-
-                var outcome = await AuthClient.LoginAsync(loginRequest);
-
-                // No caso de autenticação falhar, é enviada a mensagem de erro ao utilizador
-                if (outcome.Valid == false)
-                {
-                    Program.LoginView.ShowError("User or/and password do not match any user!");
-                    return;
-                }
-
-                // Se a autenticação for feita com sucesso, é guardado o ID de sessão do Username do utilizador no client
-                Program.SetAuthenticatedUser(outcome.SessionID, username);
-            }
-            // No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
-            catch (Grpc.Core.RpcException)
-            {
-                Program.ConnectController.ConnectionError();
-                return;
-            }
-
-            // O utilizador é avisado que a autenticação foi feita com sucesso
-            Program.LoginView.SuccessfulLogin();
-        }
 
         // Se for necessário finalizar a conexão, devido a algum erro ou por opção do utilizador, é apagado as informações do utilizador que
         // está autenticado e é reposto o client usado para a autenticação

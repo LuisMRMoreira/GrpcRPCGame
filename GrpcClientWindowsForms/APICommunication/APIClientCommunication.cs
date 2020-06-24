@@ -19,7 +19,7 @@ namespace GrpcServerRPS.APICommunication
 
 
 
-        
+        // Testado -> Funciona
         public async static Task<Account> GetUserBySessionId(string sessionId)
         {
             var responseUser = client.GetStreamAsync(BASE_URL + "accounts/session/" + sessionId ); // TODO: Get all the information of the user by user session id 
@@ -58,7 +58,7 @@ namespace GrpcServerRPS.APICommunication
 
         }
 
-
+        // Testado -> Funciona
         public async static Task<CreditNote> PostCreateCreditNote(float amount, string sessionId)
         {
 

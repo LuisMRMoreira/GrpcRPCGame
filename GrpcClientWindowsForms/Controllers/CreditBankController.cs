@@ -19,11 +19,27 @@ namespace GrpcClientWindowsForms.Controllers
 
         public CreditBankController()
         {
+
+
+
             // Events
+            Program.CreditBankMenurView.GRPCSTartRequest += CreditBankMenurView_GRPCSTartRequest;
             Program.CreditBankMenurView.APICreateCredinote += CreditBankMenurView_APICreateCredinote;
             Program.CreditBankMenurView.APIGetDataOnLoadRequest += CreditBankMenurView_APIGetDataOnLoadRequest;
             Program.AuthView.APIValidateReference += AuthView_APIValidateReference;
              
+        }
+
+        private void CreditBankMenurView_GRPCSTartRequest()
+        {
+            // No caso de a conexão já ter sido inicializada, não necessita de fazer mais nenhuma operação
+            if (GameClient != null)
+            {
+                return;
+            }
+
+            // É criado um client de autenticação
+            GameClient = new Game.GameClient(Program.ConnectionChannel);
         }
 
         private async void AuthView_APIValidateReference(string reference)

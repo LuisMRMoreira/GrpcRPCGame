@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using GrpcServerRPS.APICommunication;
+using GrpcServerRPS.APICommunication.Bodies;
 using GrpcServerRPS.Data;
 using GrpcServerRPS.Models;
 using Microsoft.EntityFrameworkCore;
@@ -193,8 +194,15 @@ namespace GrpcServerRPS.Services
                 return await Task.FromResult(output);
             }
 
+            ResponseValidateReference rvr = await APIServerCommunication.validateReference(request.Reference, user.Id);
+            if (rvr.status.Equals("error"))
+            {
+                output.IsItValid = 0;
+                output.BoughtGames = -1;
+                return await Task.FromResult(output);
+            }
 
-            if (await APIServerCommunication.validateReference(request.Reference, user.Id))
+            if (rvr.valid.Equals("true"))
             {
                 output.IsItValid = 1;
             }

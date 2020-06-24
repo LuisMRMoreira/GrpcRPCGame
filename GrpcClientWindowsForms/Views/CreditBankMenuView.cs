@@ -15,6 +15,7 @@ namespace GrpcClientWindowsForms.Views
 
         public event APICreateCredinoteRequest APICreateCredinote;
         public event APIGetDataOnLoadRequest APIGetDataOnLoadRequest;
+        public event SimpleRequest GRPCSTartRequest;
 
         public CreditBankMenuView()
         {
@@ -23,8 +24,9 @@ namespace GrpcClientWindowsForms.Views
 
         private void CreditBankMenuView_Load(object sender, EventArgs e)
         {
-
+            GRPCSTartRequest?.Invoke();
             APIGetDataOnLoadRequest?.Invoke(1); // Username
+
             //APIGetDataOnLoadRequest?.Invoke(2); // CreditNotes by user
             //APIGetDataOnLoadRequest?.Invoke(3); // Historic
 

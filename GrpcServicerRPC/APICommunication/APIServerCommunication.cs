@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GrpcServerRPS.APICommunication.Bodies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -47,18 +48,16 @@ namespace GrpcServerRPS.APICommunication
 
         }
 
-        public async static Task<Boolean> validateReference(string reference, long accountNumber)
+        public async static Task<ResponseValidateReference> validateReference(string reference, long accountNumber)
         {
 
-            String json = "{\"reference\": \"" + reference + "\",\n\"accountNumber\":\"" + accountNumber + "\"}";
-            var myContent = JsonSerializer.Serialize(json);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-            var byteContent = new ByteArrayContent(buffer);
-            HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes/validate", byteContent); // TODO: Verificar se existe a referencia. Caso exista. Faz a transferencia para o servidor e invalida a creditnote.
+            String json = "{\n\"reference\": " + reference + ",\n\"accountNumber\": " + accountNumber + "\n}";
+            var data = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes/validate", data); // TODO: Verificar se existe a referencia. Caso exista. Faz a transferencia para o servidor e invalida a creditnote.
             response.EnsureSuccessStatusCode();
 
             string apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Boolean>(apiResponse);
+            return JsonSerializer.Deserialize<ResponseValidateReference>(apiResponse);
 
 
         }
