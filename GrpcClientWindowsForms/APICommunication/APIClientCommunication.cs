@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -27,6 +28,8 @@ namespace GrpcServerRPS.APICommunication
             //string apiResponseUser = await responseUser.Content.ReadAsStringAsync();
             var a = await JsonSerializer.DeserializeAsync<ResponseAccountGetBySessionId>(await responseUser);
 
+            
+
 
             return a.data;
 
@@ -36,7 +39,7 @@ namespace GrpcServerRPS.APICommunication
         public async static Task<List<CreditNote>> GetCreditNotesBySessionId(string sessionId)
         {
 
-            HttpResponseMessage response = await client.GetAsync( BASE_URL + "accounts/"); // TODO: Get list of creditnotes by user id. Alterar o URL para o get das creditnotes do utilizador com o id outcome.UserId
+            HttpResponseMessage response = await client.GetAsync(BASE_URL + "accounts/"); // TODO: Get list of creditnotes by user id. Alterar o URL para o get das creditnotes do utilizador com o id outcome.UserId
             response.EnsureSuccessStatusCode();
 
             string apiResponse = await response.Content.ReadAsStringAsync();
@@ -68,18 +71,13 @@ namespace GrpcServerRPS.APICommunication
             //var myContent = JsonSerializer.Serialize(creditNotePostRequest);
 
 
-            String json = "{\"sessionId\": \"" + sessionId + "\",\n\"amount\":\"" + amount + "\"}";
-            var myContent = JsonSerializer.Serialize(json);
-            
-            
-            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-            var byteContent = new ByteArrayContent(buffer);
-
-            HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes", byteContent); // TODO: Pedido para criar uma nova creditnote para o utilizador atual, com o valor x.
+            String json = "{\n\"sessionId\": \"" + sessionId + "\",\n\"amount\":" + amount + "\n}";
+            var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes", stringContent); // TODO: Pedido para criar uma nova creditnote para o utilizador atual, com o valor x.
             response.EnsureSuccessStatusCode();
-
+            
             string apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<CreditNote>(apiResponse);
+            return JsonSerializer.Deserialize<ResponseCreditNotePost>(apiResponse).data;
 
         }
 

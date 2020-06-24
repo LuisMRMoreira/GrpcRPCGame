@@ -13,7 +13,7 @@ namespace GrpcClientWindowsForms.Models
         public string date { get; set; }
         public string name { get; set; }
         public Boolean disabled { get; set; }
-        public List<CreditNote> creditNotes { get; set; } 
+        public List<CreditNote> notes { get; set; } 
 
 
     }

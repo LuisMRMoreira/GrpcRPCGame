@@ -97,8 +97,8 @@ namespace GrpcClientWindowsForms.Views
 
             amount_value_lable.Text = account.amount.ToString() + " €" ;
 
-            if (account.creditNotes != null)
-                PopulateCreditNoteTable(account.creditNotes);
+            if (account.notes != null)
+                PopulateCreditNoteTable(account.notes);
 
 
         }
@@ -133,5 +133,26 @@ namespace GrpcClientWindowsForms.Views
             creditNotes_listView.Items.Add(lvi);
 
         }
+
+        private void creditNotes_listView_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sender != creditNotes_listView) return;
+
+            if (e.Control && e.KeyCode == Keys.C)
+                CopySelectedValuesToClipboard();
+        }
+
+        private void CopySelectedValuesToClipboard()
+        {
+            var builder = new StringBuilder();
+            foreach (ListViewItem item in creditNotes_listView.SelectedItems)
+            {
+                builder.AppendLine(item.SubItems[0].Text);
+                break;
+            }
+
+            Clipboard.SetText(builder.ToString());
+        }
+
     }
 }

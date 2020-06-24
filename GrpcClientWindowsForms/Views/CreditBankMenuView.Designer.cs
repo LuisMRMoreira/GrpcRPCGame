@@ -43,19 +43,25 @@
             this.CreateCreditnote_label = new System.Windows.Forms.Label();
             this.errorMessage_label = new System.Windows.Forms.Label();
             this.historic_listView = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.amountColumn = new System.Windows.Forms.ColumnHeader("(none)");
             this.DateColumn = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.creditNotes_listView = new System.Windows.Forms.ListView();
             this.referenceColumn = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.expirationDateColumn = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             ToReferenceColumn = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
+            // 
+            // ToReferenceColumn
+            // 
+            ToReferenceColumn.Name = "ToReferenceColumn";
+            ToReferenceColumn.Text = "To";
+            ToReferenceColumn.Width = 100;
             // 
             // Bank_name_label
             // 
@@ -222,12 +228,6 @@
             this.historic_listView.UseCompatibleStateImageBehavior = false;
             this.historic_listView.View = System.Windows.Forms.View.Details;
             // 
-            // ToReferenceColumn
-            // 
-            ToReferenceColumn.Name = "ToReferenceColumn";
-            ToReferenceColumn.Text = "To";
-            ToReferenceColumn.Width = 100;
-            // 
             // amountColumn
             // 
             this.amountColumn.Name = "amountColumn";
@@ -263,6 +263,7 @@
             this.creditNotes_listView.TabIndex = 6;
             this.creditNotes_listView.UseCompatibleStateImageBehavior = false;
             this.creditNotes_listView.View = System.Windows.Forms.View.Details;
+            this.creditNotes_listView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.creditNotes_listView_KeyUp);
             // 
             // referenceColumn
             // 

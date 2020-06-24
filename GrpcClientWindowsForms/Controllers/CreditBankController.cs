@@ -121,7 +121,7 @@ namespace GrpcClientWindowsForms.Controllers
         {
 
             // enviar para a view do menu do banco de créditos para que possa apresentar todas as credirnotes numa lista
-            Program.CreditBankMenurView.PopulateCreditNoteTable(await APIClientCommunication.GetCreditNotesBySessionId(Program.AuthUser.SessionID));
+            //Program.CreditBankMenurView.PopulateCreditNoteTable(await APIClientCommunication.GetCreditNotesBySessionId(Program.AuthUser.SessionID));
 
         }
 
