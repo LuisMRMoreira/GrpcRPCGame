@@ -19,11 +19,8 @@ namespace GrpcClientWindowsForms.Controllers
 
         public CreditBankController()
         {
-
-
-
             // Events
-            Program.CreditBankMenurView.GRPCSTartRequest += CreditBankMenurView_GRPCSTartRequest;
+            Program.AuthView.GRPCStartRequest += CreditBankMenurView_GRPCSTartRequest;
             Program.CreditBankMenurView.APICreateCredinote += CreditBankMenurView_APICreateCredinote;
             Program.CreditBankMenurView.APIGetDataOnLoadRequest += CreditBankMenurView_APIGetDataOnLoadRequest;
             Program.AuthView.APIValidateReference += AuthView_APIValidateReference;
@@ -64,7 +61,6 @@ namespace GrpcClientWindowsForms.Controllers
                 Program.ConnectController.ConnectionError();
                 return;
             }
-
 
             if (outcome.IsItValid == 1 && outcome != null) // Referencia introduzida válida.
             {

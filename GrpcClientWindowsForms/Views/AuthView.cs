@@ -68,6 +68,7 @@ namespace GrpcClientWindowsForms.Views
         internal void ValidateReference()
         {
 
+
             buttonPlay.Text = "Play";
             invalidReference_label.Visible = false;
             insertReference_label.Visible = false;

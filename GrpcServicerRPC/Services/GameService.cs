@@ -204,7 +204,15 @@ namespace GrpcServerRPS.Services
 
             if (rvr.valid.Equals("true"))
             {
-                output.IsItValid = 1;
+                // TODO: Executar a transação.
+
+                String rvtp = await APIServerCommunication.transactionToServerByAccountId( user.Id, request.Reference);
+
+                if (rvtp.Contains("success"))
+                    output.IsItValid = 1;
+                else
+                    output.IsItValid = 0;
+
             }
             else
             {

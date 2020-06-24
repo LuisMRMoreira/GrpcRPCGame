@@ -24,7 +24,7 @@ namespace GrpcClientWindowsForms.Views
 
         private void CreditBankMenuView_Load(object sender, EventArgs e)
         {
-            GRPCSTartRequest?.Invoke();
+            
             APIGetDataOnLoadRequest?.Invoke(1); // Username
 
             //APIGetDataOnLoadRequest?.Invoke(2); // CreditNotes by user
