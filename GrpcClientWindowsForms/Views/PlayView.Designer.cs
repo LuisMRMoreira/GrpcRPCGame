@@ -290,6 +290,7 @@
             this.Name = "PlayView";
             this.Text = "Paper, Rock and Scissors";
             this.Load += new System.EventHandler(this.PlayView_Load);
+            this.VisibleChanged += new System.EventHandler(this.PlayView_VisibleChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

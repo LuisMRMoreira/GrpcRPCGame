@@ -29,7 +29,7 @@ namespace GrpcClientWindowsForms.Views
             APIGetDataOnLoadRequest?.Invoke(1); // Username
 
             //APIGetDataOnLoadRequest?.Invoke(2); // CreditNotes by user
-            //APIGetDataOnLoadRequest?.Invoke(3); // Historic
+            APIGetDataOnLoadRequest?.Invoke(3); // Historic
 
         }
 
@@ -108,13 +108,22 @@ namespace GrpcClientWindowsForms.Views
 
         internal void PopulateHistoricTable(List<Transaction> transactions)
         {
+            if (transactions == null)
+            {
+                return;
+            }
 
             historic_listView.Items.Clear();
             foreach (Transaction transaction in transactions)
             {
-                var row = new string[] { transaction.idReceiver, transaction.amount.ToString(), transaction.date }; // TODO: Alterar do id do recetor para o número da conta do receto (ou nome do recetor).
+                var row = new string[] { transaction.idSender.name, transaction.idReceiver.name, transaction.amount.ToString(), transaction.date }; // TODO: Alterar do id do recetor para o número da conta do receto (ou nome do recetor).
                 var lvi = new ListViewItem(row);
                 lvi.Tag = transaction;
+                if (transaction.idReceiver.accountNumber == 0) 
+                    lvi.BackColor = Color.Red;
+                else
+                    lvi.BackColor = Color.Green;
+
                 historic_listView.Items.Add(lvi);
 
             }

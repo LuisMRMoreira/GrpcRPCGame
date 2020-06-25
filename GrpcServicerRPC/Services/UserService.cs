@@ -41,7 +41,7 @@ namespace GrpcServerRPS.Services
             UserLoginModel output = new UserLoginModel();
 
             // Transformação de todos os carateres do nome para upper case
-            string username = request.Username.ToUpper();
+            string username = request.Username;//.ToUpper();
 
             // Encriptação da password
             SHA512 sha512 = SHA512Managed.Create();
@@ -103,7 +103,7 @@ namespace GrpcServerRPS.Services
 
             // Transformação dos carateres do email e username para upper case
             string email = request.Email.ToUpper();
-            string username = request.Username.ToUpper();
+            string username = request.Username;//.ToUpper();
 
             // Verificações se um outro utilizador tem o mesmo email e/ou o mesmo username
             Models.User u1 = new Models.User(), u2 = new Models.User();

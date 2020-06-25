@@ -6,10 +6,10 @@ namespace GrpcClientWindowsForms.Models
 {
     public class Transaction
     {
-        public string idSender { get; set; }
-        public string idReceiver { get; set; }
+        public Account idSender { get; set; }
+        public Account idReceiver { get; set; }
         public string date { get; set; }
-        public double amount { get; set; }
+        public int amount { get; set; }
 
 
 

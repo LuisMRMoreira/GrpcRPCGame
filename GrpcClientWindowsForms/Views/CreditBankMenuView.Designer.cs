@@ -54,6 +54,7 @@
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.expirationDateColumn = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.FromcolumnHeader = new System.Windows.Forms.ColumnHeader();
             ToReferenceColumn = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             // 
             ToReferenceColumn.Name = "ToReferenceColumn";
             ToReferenceColumn.Text = "To";
-            ToReferenceColumn.Width = 100;
+            ToReferenceColumn.Width = 110;
             // 
             // Bank_name_label
             // 
@@ -145,7 +146,7 @@
             this.credinotesTable_lable.AutoSize = true;
             this.credinotesTable_lable.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.credinotesTable_lable.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.credinotesTable_lable.Location = new System.Drawing.Point(284, 131);
+            this.credinotesTable_lable.Location = new System.Drawing.Point(446, 130);
             this.credinotesTable_lable.Name = "credinotesTable_lable";
             this.credinotesTable_lable.Size = new System.Drawing.Size(113, 28);
             this.credinotesTable_lable.TabIndex = 0;
@@ -156,7 +157,7 @@
             this.createCredit_button.BackColor = System.Drawing.SystemColors.HotTrack;
             this.createCredit_button.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.createCredit_button.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.createCredit_button.Location = new System.Drawing.Point(609, 308);
+            this.createCredit_button.Location = new System.Drawing.Point(747, 277);
             this.createCredit_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.createCredit_button.Name = "createCredit_button";
             this.createCredit_button.Size = new System.Drawing.Size(118, 49);
@@ -170,7 +171,7 @@
             this.EndSession_button.BackColor = System.Drawing.SystemColors.HotTrack;
             this.EndSession_button.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.EndSession_button.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.EndSession_button.Location = new System.Drawing.Point(609, 368);
+            this.EndSession_button.Location = new System.Drawing.Point(747, 337);
             this.EndSession_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.EndSession_button.Name = "EndSession_button";
             this.EndSession_button.Size = new System.Drawing.Size(118, 49);
@@ -181,7 +182,7 @@
             // 
             // createCreditNoteValue_TextBox
             // 
-            this.createCreditNoteValue_TextBox.Location = new System.Drawing.Point(676, 232);
+            this.createCreditNoteValue_TextBox.Location = new System.Drawing.Point(814, 201);
             this.createCreditNoteValue_TextBox.Name = "createCreditNoteValue_TextBox";
             this.createCreditNoteValue_TextBox.Size = new System.Drawing.Size(51, 23);
             this.createCreditNoteValue_TextBox.TabIndex = 3;
@@ -193,7 +194,7 @@
             this.CreateCreditnote_label.AutoSize = true;
             this.CreateCreditnote_label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.CreateCreditnote_label.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.CreateCreditnote_label.Location = new System.Drawing.Point(601, 230);
+            this.CreateCreditnote_label.Location = new System.Drawing.Point(739, 199);
             this.CreateCreditnote_label.Name = "CreateCreditnote_label";
             this.CreateCreditnote_label.Size = new System.Drawing.Size(66, 19);
             this.CreateCreditnote_label.TabIndex = 0;
@@ -205,7 +206,7 @@
             this.errorMessage_label.AutoSize = true;
             this.errorMessage_label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.errorMessage_label.ForeColor = System.Drawing.Color.Firebrick;
-            this.errorMessage_label.Location = new System.Drawing.Point(604, 265);
+            this.errorMessage_label.Location = new System.Drawing.Point(742, 234);
             this.errorMessage_label.Name = "errorMessage_label";
             this.errorMessage_label.Size = new System.Drawing.Size(106, 19);
             this.errorMessage_label.TabIndex = 5;
@@ -215,6 +216,7 @@
             // historic_listView
             // 
             this.historic_listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.FromcolumnHeader,
             ToReferenceColumn,
             this.amountColumn,
             this.DateColumn});
@@ -223,7 +225,7 @@
             this.historic_listView.HideSelection = false;
             this.historic_listView.Location = new System.Drawing.Point(24, 164);
             this.historic_listView.Name = "historic_listView";
-            this.historic_listView.Size = new System.Drawing.Size(226, 255);
+            this.historic_listView.Size = new System.Drawing.Size(384, 255);
             this.historic_listView.TabIndex = 6;
             this.historic_listView.UseCompatibleStateImageBehavior = false;
             this.historic_listView.View = System.Windows.Forms.View.Details;
@@ -237,6 +239,7 @@
             // 
             this.DateColumn.Name = "DateColumn";
             this.DateColumn.Text = "Date";
+            this.DateColumn.Width = 100;
             // 
             // columnHeader3
             // 
@@ -257,9 +260,9 @@
             this.creditNotes_listView.FullRowSelect = true;
             this.creditNotes_listView.GridLines = true;
             this.creditNotes_listView.HideSelection = false;
-            this.creditNotes_listView.Location = new System.Drawing.Point(290, 165);
+            this.creditNotes_listView.Location = new System.Drawing.Point(446, 164);
             this.creditNotes_listView.Name = "creditNotes_listView";
-            this.creditNotes_listView.Size = new System.Drawing.Size(226, 255);
+            this.creditNotes_listView.Size = new System.Drawing.Size(276, 255);
             this.creditNotes_listView.TabIndex = 6;
             this.creditNotes_listView.UseCompatibleStateImageBehavior = false;
             this.creditNotes_listView.View = System.Windows.Forms.View.Details;
@@ -269,7 +272,7 @@
             // 
             this.referenceColumn.Name = "referenceColumn";
             this.referenceColumn.Text = "Reference";
-            this.referenceColumn.Width = 100;
+            this.referenceColumn.Width = 120;
             // 
             // columnHeader6
             // 
@@ -280,12 +283,19 @@
             // 
             this.expirationDateColumn.Name = "expirationDateColumn";
             this.expirationDateColumn.Text = "Expiration";
+            this.expirationDateColumn.Width = 100;
+            // 
+            // FromcolumnHeader
+            // 
+            this.FromcolumnHeader.Name = "FromcolumnHeader";
+            this.FromcolumnHeader.Text = "From";
+            this.FromcolumnHeader.Width = 110;
             // 
             // CreditBankMenuView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(885, 450);
             this.Controls.Add(this.creditNotes_listView);
             this.Controls.Add(this.historic_listView);
             this.Controls.Add(this.errorMessage_label);
@@ -336,5 +346,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader expirationDateColumn;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader FromcolumnHeader;
     }
 }

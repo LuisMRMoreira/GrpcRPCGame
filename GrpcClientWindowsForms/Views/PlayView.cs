@@ -128,5 +128,10 @@ namespace GrpcClientWindowsForms.Views
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void PlayView_VisibleChanged(object sender, EventArgs e)
+        {
+            unableToPlay_label.Visible = false;
+        }
     }
 }

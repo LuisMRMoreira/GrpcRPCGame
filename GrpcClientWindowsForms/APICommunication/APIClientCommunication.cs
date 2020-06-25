@@ -1,4 +1,5 @@
 ﻿using GrpcClientConsoleApp.Models;
+using GrpcClientWindowsForms.APICommunication.Bodies;
 using GrpcClientWindowsForms.Models;
 using System;
 using System.Collections.Generic;
@@ -49,12 +50,14 @@ namespace GrpcServerRPS.APICommunication
 
         public async static Task<List<Transaction>> GetTransactionsBySessionId(string sessionId)
         {
+            
+            var response = client.GetStreamAsync(BASE_URL + "transactions/" + sessionId); // TODO: Get list of creditnotes by user id. Alterar o URL para o get das creditnotes do utilizador com o id outcome.UserId
 
-            HttpResponseMessage response = await client.GetAsync(BASE_URL + "accounts/"); // TODO: Get list of creditnotes by user id. Alterar o URL para o get das creditnotes do utilizador com o id outcome.UserId
-            response.EnsureSuccessStatusCode();
 
-            string apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<Transaction>>(apiResponse);
+            var a = await JsonSerializer.DeserializeAsync<ResponseTransactions>(await response);
+            
+            
+            return a.data;
 
         }
 
