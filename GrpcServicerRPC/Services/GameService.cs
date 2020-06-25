@@ -24,7 +24,7 @@ namespace GrpcServerRPS.Services
             _context = context;
         }
 
-        public override Task<PlayModel> Play(PlayLookupModel request, ServerCallContext context)
+        public async override Task<PlayModel> Play(PlayLookupModel request, ServerCallContext context)
         {
             PlayModel output = new PlayModel();
 
@@ -34,12 +34,12 @@ namespace GrpcServerRPS.Services
             if (user == null)
             {
                 output.Result = -1;
-                return Task.FromResult(output);
+                return await Task.FromResult(output);
             }
             else if (user.GamesToPlay == 0)
             {
                 output.Result = -2;
-                return Task.FromResult(output);
+                return await Task.FromResult(output);
             }
 
             History h = _context.History.Include(i => i.User).FirstOrDefault(u => u.userId == user.Id);
@@ -84,6 +84,12 @@ namespace GrpcServerRPS.Services
                             output.ServerPlay = "Scissors";
                             output.Result = 1; // Utilizador venceu
                             h.win++;
+                            string result = await APIServerCommunication.transactionFromServerToClient(user.Id, 1);
+                            if (!result.Contains("success"))
+                            {
+                                output.Result = -1;
+                                return await Task.FromResult(output);
+                            }
                             break;
                         default:
                             break;
@@ -98,6 +104,12 @@ namespace GrpcServerRPS.Services
                             output.ServerPlay = "Rock";
                             output.Result = 1; // Utilizador venceu
                             h.win++;
+                            string result = await APIServerCommunication.transactionFromServerToClient(user.Id, 1);
+                            if (!result.Contains("success"))
+                            {
+                                output.Result = -1;
+                                return await Task.FromResult(output);
+                            }
                             break;
                         case 2: // Papel
                             output.ServerPlay = "Paper";
@@ -125,6 +137,12 @@ namespace GrpcServerRPS.Services
                             output.ServerPlay = "Paper";
                             output.Result = 1; // Utilizador venceu
                             h.win++;
+                            string result = await APIServerCommunication.transactionFromServerToClient(user.Id, 1);
+                            if (!result.Contains("success"))
+                            {
+                                output.Result = -1;
+                                return await Task.FromResult(output);
+                            }
                             break;
                         case 3: // Tesoura
                             output.ServerPlay = "Scissors";
@@ -145,7 +163,7 @@ namespace GrpcServerRPS.Services
             _context.SaveChanges();
 
 
-            return Task.FromResult(output);
+            return await Task.FromResult(output);
         }
 
         public override Task<StatsModel> Stats(StatsLookupModel request, ServerCallContext context)

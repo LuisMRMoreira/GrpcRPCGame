@@ -74,5 +74,18 @@ namespace GrpcServerRPS.APICommunication
             string apiResponse = await response.Content.ReadAsStringAsync();
             return apiResponse;
         }
+
+
+        // Servidor:
+        internal async static Task<String> transactionFromServerToClient(int userId, int amount)
+        {
+            String json = "{\n\"accountNumberSender\": " + "0" + ",\n\"accountNumberReceiver\": " + userId + ",\n\"amount\":" + amount + "\n}";
+            var data = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(BASE_URL + "transactions", data); // TODO: Verificar se existe a referencia. Caso exista. Faz a transferencia para o servidor e invalida a creditnote.
+            //response.EnsureSuccessStatusCode();
+
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            return apiResponse;
+        }
     }
 }
