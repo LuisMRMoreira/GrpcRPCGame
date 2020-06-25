@@ -33,3 +33,19 @@ Criação de sistema de crétido: Evolução da aplicação desenvolvida anterio
 
 
 Para testar a API foi utilizada a pataforma [Postman](https://www.postman.com/).
+
+
+**Funcionamento da aplicação:**
+- Quando um utilizador cria uma conta, esta é também criada numa API designada por serviço de créditos. Um utilizador inicia a conta com um montante pré-estabelecido (neste momento 500 créditos);
+- Sempre que é feito o login do utilizador, o id de sessão também é alterado na API de forma a facilitar o acesso direto entre o cliente e a API;
+- No caso do login ser bem sucedido, o utilizador encontrará um menu que no canto superior direito dirá o número de jogos que ainda pode jogar. Estes jogos foram anteriormente comprados;
+- Para comprar jogos, tem de se clicar no botão "Buy games" onde aparecerá uma text box para que o cliente introduza uma referência válida. No caso da referência não ser válida (já ter sido utilizada ou não existir), aparecerá uma mensagem no canto superior esquerdo. Caso contrário, serão adicionados à conta do utilizador um número de jogos, de acordo com o valor da referência e da taxa aplicada (neste momento 1 crédito = 1 jogo);
+- Para se criar uma referência, é necessário criar uma nota de crédito. Para isso clica-se no botão central "Credit note" que redirecionará o utilizador para a view do serviço de créditos. Para além da possibilidade do utilizador criar uma nota de crédito com o valor que quiser (desde que não passe o montante disponível), ao clicar no botão "create credit" serão também aqui apresentadas:
+  - Todas as transações feitas, onde o utilizador atual interveio (A verde, recebeu o montante, a vermelho pagou);
+  - Todas as notas de crédito que o utilizador já criou (Vermelho indicam as que já foram utilizadas e ver as que ainda podem ser usadas. Para o utilizador copiar a referência da nota de crédito que deseja basta selecionar uma das da lista e clicar ctrl+c);
+  - O montante que o utilizador contém;
+  - O nome do utilizador.
+- Voltando ao menu principal, no caso do utilizador já ter comprado jogos e de não os ter gasto, a opção de jogar será disponível através do clique no botão "Play", que redirecionará o utilizador para a view de jogo;
+- Por fim, a view de jogo, terá o histórico de jogos, assim como o número de jogos que o utilizador pode jogar e as opções de jogo. No caso do utilizador já não ter mais jogos disponíveis, ser-lhe-á apresentada uma mensagem. No caso do utilizador vencer um jogo contra o servidor, este último irá transferir um valor em créditos (atualmente 1 crédito) para a conta do utilizador que o superou.
+
+
