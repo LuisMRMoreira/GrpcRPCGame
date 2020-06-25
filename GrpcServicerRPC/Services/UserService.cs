@@ -170,5 +170,47 @@ namespace GrpcServerRPS.Services
             return Task.FromResult(output);
 
         }
+
+        public override Task<UserGetUserBySessionIdModel> GetUserBySessionId(UserGetUserBySessionIdLookupModel request, ServerCallContext context)
+        {
+            UserGetUserBySessionIdModel output = new UserGetUserBySessionIdModel();
+
+            Models.User u1 = new Models.User();
+            u1 = _context.User.FirstOrDefault(u => u.SessionID == request.SessionID && u.Username == request.Username);
+
+            if (u1 != null)
+            {
+                output.UserId = u1.Id;
+                output.Username = u1.Username;
+                output.Email = u1.Email;
+                output.Games = u1.GamesToPlay;
+            }
+            else
+            {
+                output.UserId = -1;
+                output.Username = "";
+                output.Email = "";
+                output.Games = -1;
+            }
+
+            return Task.FromResult(output);
+
+        }
+
+        public override Task<UserGetGamesBySessionIdModel> GetGamesBySessionId(UserGetGamesBySessionIdLookupModel request, ServerCallContext context)
+        {
+            UserGetGamesBySessionIdModel output = new UserGetGamesBySessionIdModel();
+
+            Models.User u1 = new Models.User();
+            u1 = _context.User.FirstOrDefault(u => u.SessionID == request.SessionID);
+
+            if (u1 != null)
+                output.Games = u1.GamesToPlay;
+            else
+                output.Games = -1;
+
+            return Task.FromResult(output);
+
+        }
     }
 }

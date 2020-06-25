@@ -11,8 +11,8 @@ namespace GrpcClientWindowsForms.Views
     public partial class AuthView : Form
     {
         public event SimpleRequest GRPCStartRequest;
+        public event SimpleRequest GRPCGetGames;
         public event APIValidateReference APIValidateReference;
-
 
         public AuthView()
         {
@@ -22,6 +22,10 @@ namespace GrpcClientWindowsForms.Views
         private void AuthView_Load(object sender, EventArgs e)
         {
             GRPCStartRequest?.Invoke();
+
+
+
+            
         }
 
         // Sempre que o utilizador clica no X, esta view é escondida, e é aberta a view de conexão
@@ -37,13 +41,31 @@ namespace GrpcClientWindowsForms.Views
             }
         }
 
+        internal void SetGames(int games)
+        {
+            if (games == 0)
+            {
+                games_label.Visible = true;
+                games_label.Text = "You don't have any game, please by some to play.";
+                play_button.Enabled = false;
+                play_button.Enabled = false;
+            }
+            else
+            {
+                games_label.Text = "You have " + games + " left to play.";
+                play_button.Enabled = true;
+                games_label.Visible = true;
+                play_button.Enabled = true;
+            }
+        }
+
         private void ButtonPlay_Click(object sender, EventArgs e)
         {
 
             // Mostar o input text para inserção de uma referencia
-            if (buttonPlay.Text == "Play")
+            if (buyGames_button.Text == "Buy games")
             {
-                buttonPlay.Text = "Confirm and play";
+                buyGames_button.Text = "Confirm";
                 invalidReference_label.Visible = false;
                 insertReference_label.Visible = true;
                 reference_textBox.Visible = true;
@@ -51,7 +73,10 @@ namespace GrpcClientWindowsForms.Views
             }
             else
             {
-
+                buyGames_button.Text = "Buy games";
+                invalidReference_label.Visible = false;
+                insertReference_label.Visible = false;
+                reference_textBox.Visible = false;
                 // TODO: Criar uma nova creditnote com o valor indicado, caso seja possível
                 APIValidateReference?.Invoke(reference_textBox.Text);
 
@@ -60,6 +85,17 @@ namespace GrpcClientWindowsForms.Views
 
         }
 
+        private void BPlay_Click(object sender, EventArgs e)
+        {
+
+            Hide();
+            Program.PlayView.Show();
+
+
+
+        }
+
+
         internal void InvalidateReference()
         {
             invalidReference_label.Visible = true;
@@ -67,15 +103,12 @@ namespace GrpcClientWindowsForms.Views
 
         internal void ValidateReference()
         {
-
-
-            buttonPlay.Text = "Play";
+            // Obter o número total de jogos do utilizador
+            GRPCGetGames?.Invoke();
+            buyGames_button.Text = "Buy games";
             invalidReference_label.Visible = false;
             insertReference_label.Visible = false;
             reference_textBox.Visible = false;
-
-            Hide();
-            Program.PlayView.Show();
         }
 
         // Abre a view para o utilizador realizar o registo
@@ -108,10 +141,14 @@ namespace GrpcClientWindowsForms.Views
                 buttonLogin.Visible = false;
                 buttonRegister.Visible = false;
                 textboxWelcome.Text = Program.AuthUser.Username.ToString();
-                buttonPlay.Enabled = true;
-                buttonPlay.Visible = true;
+                buyGames_button.Enabled = true;
+                buyGames_button.Visible = true;
+                play_button.Enabled = true;
+                play_button.Visible = true;
                 Button_gotoCreditBank.Enabled = true;
                 Button_gotoCreditBank.Visible = true;
+                // Obter o número total de jogos do utilizador
+                GRPCGetGames?.Invoke();
 
             }
             else
@@ -122,9 +159,11 @@ namespace GrpcClientWindowsForms.Views
         }
 
         public void EnableAuthButtons()
-        { 
-            buttonPlay.Visible = false;
-            buttonPlay.Enabled = false;
+        {
+            buyGames_button.Visible = false;
+            buyGames_button.Enabled = false;
+            play_button.Enabled = false;
+            play_button.Visible = false;
             Button_gotoCreditBank.Enabled = false;
             Button_gotoCreditBank.Visible = false;
             buttonRegister.Enabled = true;
@@ -135,8 +174,10 @@ namespace GrpcClientWindowsForms.Views
 
         public void ResetView()
         {
-            buttonPlay.Visible = false;
-            buttonPlay.Enabled = false;
+            buyGames_button.Visible = false;
+            buyGames_button.Enabled = false;
+            play_button.Enabled = false;
+            play_button.Visible = false;
             Button_gotoCreditBank.Enabled = false;
             Button_gotoCreditBank.Visible = false;
             textboxWelcome.Text = "";

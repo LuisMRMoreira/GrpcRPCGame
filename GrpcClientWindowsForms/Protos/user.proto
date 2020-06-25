@@ -12,6 +12,8 @@ service User {
 
 	rpc GetUserBySessionId (UserGetUserBySessionIdLookupModel) returns (UserGetUserBySessionIdModel);
 
+	rpc GetGamesBySessionId (UserGetGamesBySessionIdLookupModel) returns (UserGetGamesBySessionIdModel);
+
 }
 
 message UserLoginLookupModel {
@@ -40,6 +42,10 @@ message UserGetUserBySessionIdLookupModel {
 	string username = 2;
 }
 
+message UserGetGamesBySessionIdLookupModel {
+	string sessionID = 1;
+}
+
 
 message UserLoginModel {
 	
@@ -62,4 +68,10 @@ message UserGetUserBySessionIdModel {
 	int32 userId = 1;
 	string username = 2;
 	string email = 3;
+	int32 games = 4;
+}
+
+message UserGetGamesBySessionIdModel {
+
+	int32 games = 1;
 }

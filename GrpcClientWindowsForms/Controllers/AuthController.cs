@@ -17,6 +17,22 @@ namespace GrpcClientWindowsForms.Controllers
             Program.AuthView.GRPCStartRequest += StartGRPCConnection;
             Program.LoginView.LoginRequest += LoginView_LoginRequest;
             Program.RegisterView.RegisterRequest += Register;
+            Program.AuthView.GRPCGetGames += AuthView_GRPCGetGames;
+        }
+
+        private void AuthView_GRPCGetGames()
+        {
+            UserGetGamesBySessionIdLookupModel req = new UserGetGamesBySessionIdLookupModel
+            {
+                SessionID = Program.AuthUser.SessionID
+            };
+
+            UserGetGamesBySessionIdModel outcome = AuthClient.GetGamesBySessionId(req);
+
+            if (outcome.Games != -1)
+            {
+                Program.AuthView.SetGames(outcome.Games);
+            }
         }
 
         // Método usado para enviar um pedido para o servidor GRPC com o intuito de autenticar um utilizador
