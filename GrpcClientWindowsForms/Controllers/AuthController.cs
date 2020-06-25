@@ -91,7 +91,7 @@ namespace GrpcClientWindowsForms.Controllers
         }
 
         // Método usado para enviar um pedido para o servidor GRPC com o intuito de registar um utilizador
-        private async void Register(string username, string email, string password, string passwordConfirmation)
+        private void Register(string username, string email, string password, string passwordConfirmation)
         {
             // Se o client estiver a null, significa que ocorreu algum erro, e é finalizada a conexão
             if (AuthClient == null)
@@ -117,7 +117,7 @@ namespace GrpcClientWindowsForms.Controllers
                     Password = password
                 };
 
-                var outcome = await AuthClient.RegistAsync(registerRequest);
+                var outcome = AuthClient.Regist(registerRequest);
                 validRegistration = outcome.Valid;
             }
             // No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
