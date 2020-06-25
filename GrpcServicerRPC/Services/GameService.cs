@@ -36,6 +36,11 @@ namespace GrpcServerRPS.Services
                 output.Result = -1;
                 return Task.FromResult(output);
             }
+            else if (user.GamesToPlay == 0)
+            {
+                output.Result = -2;
+                return Task.FromResult(output);
+            }
 
             History h = _context.History.Include(i => i.User).FirstOrDefault(u => u.userId == user.Id);
             if (h == null) // No caso do utilizador nunca ter jogado, criamos uma linha na tabela de estatísticas para este
@@ -134,7 +139,7 @@ namespace GrpcServerRPS.Services
                 default:
                     break;
             }
-
+            user.GamesToPlay--;
             h.Games++;
 
             _context.SaveChanges();
@@ -179,6 +184,7 @@ namespace GrpcServerRPS.Services
             output.GamesPlayed = h.Games;
             output.Losts = h.lost;
             output.Wins = h.win;
+            output.GamesLeft = user.GamesToPlay;
 
             return Task.FromResult(output);
         }

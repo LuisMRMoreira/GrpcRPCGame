@@ -55,7 +55,7 @@ namespace GrpcClientWindowsForms.Views
             textboxClientPlay.Text = "Scissors";
             DisablePlayButtons();
             PlayRequest?.Invoke(3);
-        } 
+        }
 
         // Sempre que é pressionado um botão para realizar uma jogada, é chamado este método para prevenir que mais jogadas sejam feitas
         // enquanto a jogada não for processada pelo servidor e apresentado o resultado ao jogador
@@ -96,12 +96,18 @@ namespace GrpcClientWindowsForms.Views
             EnablePlayButtons();
         }
 
-        public void ShowStats(int plays, int wins, int ties, int losses)
+        public void ShowStats(int plays, int wins, int ties, int losses, int gamesLeft)
         {
             textboxGamesPlayed.Text = plays.ToString();
             textboxWins.Text = wins.ToString();
             textboxTies.Text = ties.ToString();
             textboxLosses.Text = losses.ToString();
+            gamesleft_textBox.Text = gamesLeft.ToString();
+        }
+
+        internal void UnableToPlayDueToLackOfGames()
+        {
+            unableToPlay_label.Visible = true;
         }
 
         // No caso de ocorrer algum problema com a conexão é chamado este método, que tem como função esconder e repor esta view
@@ -110,11 +116,17 @@ namespace GrpcClientWindowsForms.Views
             Hide();
             labelOutcome.Text = "";
             labelOutcome.Visible = false;
-            buttonPlayPaper.Enabled = false;
-            buttonPlayRock.Enabled = false;
-            buttonPlayScissors.Enabled = false;
+            buttonPlayPaper.Enabled = true;
+            buttonPlayRock.Enabled = true;
+            buttonPlayScissors.Enabled = true;
             textboxClientPlay.Text = "";
             textboxServerPlay.Text = "";
+        }
+
+        private void backToMenu_button_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace GrpcClientWindowsForms.Controllers
 
 
             // Se a conexão for feita com sucesso, são carregadas as estatísticas para a view, e são ativados os butões para jogar
-            Program.PlayView.ShowStats(stats.GamesPlayed, stats.Wins, stats.Draws, stats.Losts);            
+            Program.PlayView.ShowStats(stats.GamesPlayed, stats.Wins, stats.Draws, stats.Losts, stats.GamesLeft);            
             Program.PlayView.EnablePlayButtons();
             return;
         }
@@ -80,6 +80,11 @@ namespace GrpcClientWindowsForms.Controllers
 
                 var outcome = await PlayClient.PlayAsync(playRequest);
 
+                if (outcome.Result == -2)
+                {
+                    Program.PlayView.UnableToPlayDueToLackOfGames();
+                }
+
                 Program.PlayView.ShowGameOutcome(outcome.Result, outcome.ServerPlay);
             }
             // No caso de a conexão falhar é apanhada a exceção respetiva, e é apresentada uma mensagem de erro na view
@@ -102,7 +107,7 @@ namespace GrpcClientWindowsForms.Controllers
 
                 var outcome = await PlayClient.StatsAsync(statsRequest);
 
-                Program.PlayView.ShowStats(outcome.GamesPlayed, outcome.Wins, outcome.Draws, outcome.Losts);
+                Program.PlayView.ShowStats(outcome.GamesPlayed, outcome.Wins, outcome.Draws, outcome.Losts, outcome.GamesLeft);
             }
             // No caso de a conexão falhar
             catch (Grpc.Core.RpcException)

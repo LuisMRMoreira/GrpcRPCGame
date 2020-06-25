@@ -110,6 +110,7 @@ namespace GrpcClientWindowsForms.Views
             Hide();
             Program.PlayView.Show();
 
+            
 
 
         }
