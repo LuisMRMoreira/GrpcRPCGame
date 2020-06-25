@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace GrpcClientWindowsForms.Views
 {
@@ -219,6 +220,18 @@ namespace GrpcClientWindowsForms.Views
             {
                 e.Handled = true;
             }
+        }
+
+        private void AuthView_VisibleChanged(object sender, EventArgs e)
+        {
+
+            if (Program.AuthUser != null)
+            {
+                // Obter o número total de jogos do utilizador
+                GRPCGetGames?.Invoke();
+
+            }
+
         }
     }
 }

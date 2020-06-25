@@ -201,6 +201,7 @@
             this.Name = "AuthView";
             this.Text = "Authentication";
             this.Load += new System.EventHandler(this.AuthView_Load);
+            this.VisibleChanged += new System.EventHandler(this.AuthView_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

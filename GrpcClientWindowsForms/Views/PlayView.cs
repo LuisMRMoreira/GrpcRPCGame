@@ -115,7 +115,7 @@ namespace GrpcClientWindowsForms.Views
         {
             Hide();
             labelOutcome.Text = "";
-            labelOutcome.Visible = false;
+            labelOutcome.Visible = true;
             buttonPlayPaper.Enabled = true;
             buttonPlayRock.Enabled = true;
             buttonPlayScissors.Enabled = true;
