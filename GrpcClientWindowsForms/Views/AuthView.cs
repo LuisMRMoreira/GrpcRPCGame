@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace GrpcClientWindowsForms.Views
 {
@@ -65,6 +66,8 @@ namespace GrpcClientWindowsForms.Views
             // Mostar o input text para inserção de uma referencia
             if (buyGames_button.Text == "Buy games")
             {
+
+
                 buyGames_button.Text = "Confirm";
                 invalidReference_label.Visible = false;
                 insertReference_label.Visible = true;
@@ -73,6 +76,11 @@ namespace GrpcClientWindowsForms.Views
             }
             else
             {
+                if (reference_textBox.Text.ToString().Length == 0 || reference_textBox.Text.ToString() == null || !IsDigitsOnly(reference_textBox.Text.ToString()))
+                {
+                    reference_textBox.Text = "";
+                    return;
+                }
                 buyGames_button.Text = "Buy games";
                 invalidReference_label.Visible = false;
                 insertReference_label.Visible = false;
@@ -83,6 +91,17 @@ namespace GrpcClientWindowsForms.Views
             }
 
 
+        }
+
+        private bool IsDigitsOnly(string str)
+        {
+            foreach (char c in str)
+            {
+                if (c < '0' || c > '9')
+                    return false;
+            }
+
+            return true;
         }
 
         private void BPlay_Click(object sender, EventArgs e)
@@ -192,6 +211,14 @@ namespace GrpcClientWindowsForms.Views
 
             Program.CreditBankMenurView.ShowDialog();
 
+        }
+
+        private void reference_textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))//&& (e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

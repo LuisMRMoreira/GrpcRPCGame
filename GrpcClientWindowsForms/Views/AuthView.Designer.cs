@@ -131,6 +131,7 @@
             this.reference_textBox.Size = new System.Drawing.Size(159, 23);
             this.reference_textBox.TabIndex = 2;
             this.reference_textBox.Visible = false;
+            this.reference_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.reference_textBox_KeyPress);
             // 
             // insertReference_label
             // 

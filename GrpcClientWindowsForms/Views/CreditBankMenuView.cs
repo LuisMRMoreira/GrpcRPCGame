@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -97,7 +98,7 @@ namespace GrpcClientWindowsForms.Views
         {
             username_label.Text = account.name;
 
-            amount_value_lable.Text = account.amount.ToString() + " €" ;
+            amount_value_lable.Text = account.amount.ToString() + " créditos" ;
 
             if (account.notes != null)
                 PopulateCreditNoteTable(account.notes);
@@ -123,6 +124,9 @@ namespace GrpcClientWindowsForms.Views
 
         internal void AddCreditNoteRowToTable(CreditNote creditNote)
         {
+            string numberString = new String(amount_value_lable.Text.ToString().Where(Char.IsDigit).ToArray());
+            int number = int.Parse(numberString) - Convert.ToInt32(creditNote.amount);
+            amount_value_lable.Text = number + " créditos";
 
             var row = new string[] { creditNote.reference.ToString(), creditNote.amount.ToString(), creditNote.dateExpiry };
             var lvi = new ListViewItem(row);
