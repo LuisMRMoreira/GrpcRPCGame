@@ -19,7 +19,7 @@ namespace GrpcClientWindowsForms.Controllers
 
         public CreditBankController()
         {
-            // Events
+            // Eventos
             Program.AuthView.GRPCStartRequest += CreditBankMenurView_GRPCSTartRequest;
             Program.CreditBankMenurView.APICreateCredinote += CreditBankMenurView_APICreateCredinote;
             Program.CreditBankMenurView.APIGetDataOnLoadRequest += CreditBankMenurView_APIGetDataOnLoadRequest;
@@ -27,6 +27,7 @@ namespace GrpcClientWindowsForms.Controllers
              
         }
 
+        // Inicialização do cliente gRPC referente ao jogo.
         private void CreditBankMenurView_GRPCSTartRequest()
         {
             // No caso de a conexão já ter sido inicializada, não necessita de fazer mais nenhuma operação
@@ -39,6 +40,8 @@ namespace GrpcClientWindowsForms.Controllers
             GameClient = new Game.GameClient(Program.ConnectionChannel);
         }
 
+
+        // Tratamento do evento de validação de referencia. Este evento foi chamado no AuthView.
         private async void AuthView_APIValidateReference(string reference)
         {
 
@@ -46,12 +49,15 @@ namespace GrpcClientWindowsForms.Controllers
 
             try
             {
+
+                // Modelo com as informações do pedido para o servidor tratar.
                 ValidadeReferenceLookuoModel transactionData = new ValidadeReferenceLookuoModel
                 {
                     SessionId = Program.AuthUser.SessionID,
                     Reference = reference
                 };
 
+                // Pedido assincrono de validação da referência passada pelo servidor.
                 outcome = await GameClient.ValidadeReferenceAsync(transactionData);
 
             }
@@ -75,52 +81,14 @@ namespace GrpcClientWindowsForms.Controllers
         // Popular a view CreditBantMenuView com os dados referentes ao utilizador logado.
         private async void CreditBankMenurView_APIGetDataOnLoadRequest(int typeOfData)
         {
-            //UserIdByUserSessionIdModel outcome = null;
-
-            //try
-            //{
-            //    UserIdByUserSessionIdLookupModel userIdRequest = new UserIdByUserSessionIdLookupModel
-            //    {
-            //        SessionID = Program.AuthUser.SessionID,
-            //        Username = Program.AuthUser.Username
-            //    };
-
-            //    outcome = await AuthClient.UserIdByUserSessionIdAsync(userIdRequest);
-
-            //}
-            //// No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
-            //catch (Grpc.Core.RpcException)
-            //{
-            //    Program.ConnectController.ConnectionError();
-            //    return;
-            //}
-
-
-
-            //if (outcome.UserId != -1)
-            //{
-
-            //}
-            //else
-            //{
-
-            //    // TODO: Mostrar erro ao tentar encontrar o id sessão no servidor.
-
-            //}
-
             switch (typeOfData)
             {
-                case 1: // Username
+                case 1: // Obtem a parir da api o utilizador atual (através da sessionId) juntamente com as notas de crédito.
 
                     Program.CreditBankMenurView.PopulateUserData(await APIClientCommunication.GetUserBySessionId(Program.AuthUser.SessionID));
 
                     break;
-                case 2: // Credit notes by user
-
-                    //getCreditnotes();
-
-                    break;
-                case 3: // Historic
+                case 3: // Transações associadas ao utilizador atual.
 
                     Program.CreditBankMenurView.PopulateHistoricTable(await APIClientCommunication.GetTransactionsBySessionId(Program.AuthUser.SessionID));
 
@@ -129,44 +97,16 @@ namespace GrpcClientWindowsForms.Controllers
             
         }
 
-        private async void getCreditnotes()
-        {
-
-            // enviar para a view do menu do banco de créditos para que possa apresentar todas as credirnotes numa lista
-            //Program.CreditBankMenurView.PopulateCreditNoteTable(await APIClientCommunication.GetCreditNotesBySessionId(Program.AuthUser.SessionID));
-
-        }
-
-
-        // Criar creditnote
+        // Tratamento do evento de criação de uma nova nota de crédito vindo da CreditBankMenuView.
         private async void CreditBankMenurView_APICreateCredinote(float amount)
         {
-
-            //// Obter o id do utilizador a paritr do id de sessao
-            //UserIdByUserSessionIdModel outcome = null;
-
-            //try
-            //{
-            //    UserIdByUserSessionIdLookupModel userIdRequest = new UserIdByUserSessionIdLookupModel
-            //    {
-            //        SessionID = Program.AuthUser.SessionID,
-            //        Username = Program.AuthUser.Username
-            //    };
-
-            //    outcome = await AuthClient.UserIdByUserSessionIdAsync(userIdRequest);
-
-            //}
-            //// No caso de a conexão com o servidor falhar, é chamado o método de ConnectController para finalizar todas as conexões
-            //catch (Grpc.Core.RpcException)
-            //{
-            //    Program.ConnectController.ConnectionError();
-            //    return;
-            //}
-
+            // Comunicação com a API, de forma a criar uma noca nota de crédito com o amount referido pelo cliente com o id de sessão atual.
             ResponseCreditNotePost rcnp = await APIClientCommunication.PostCreateCreditNote(amount, Program.AuthUser.SessionID);
 
+            
             if (rcnp.status.Equals("error"))
             {
+                // No caso da resposta do pedido à API ser igual a "error", apresenta-se uma mensagem na view CreditBankMenurView a informar o sucedido.
                 Program.CreditBankMenurView.UnableToCreateCreditNote();
             }
             else 

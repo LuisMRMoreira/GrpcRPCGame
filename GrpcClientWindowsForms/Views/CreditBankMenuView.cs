@@ -25,20 +25,18 @@ namespace GrpcClientWindowsForms.Views
 
         private void CreditBankMenuView_Load(object sender, EventArgs e)
         {
-            
-            APIGetDataOnLoadRequest?.Invoke(1); // Username
-
-            //APIGetDataOnLoadRequest?.Invoke(2); // CreditNotes by user
-            APIGetDataOnLoadRequest?.Invoke(3); // Historic
-
+            // Quando a página do banco de créditos for carregada, envia-se um evento para se obter, tanto o utilizador (com as respetivas notas de crédito), como o historico de transações.
+            APIGetDataOnLoadRequest?.Invoke(1); // Utilizador com as notas de crédito.
+            APIGetDataOnLoadRequest?.Invoke(3); // Transações
         }
 
+        // Clique para criação de uma nova nota de crédito.
         private void createCredit_button_Click(object sender, EventArgs e)
         {
-
+            // O primeiro clique no botão, altera o texto do botão para Confirm e faz aparecer a text box e a label. O segundo clique, mete a view no estado inicial e envia um evento para o CreditBankMenuController para tratar a validação da referência. 
             if (createCredit_button.Text == "Confirm")
             {
-                // TODO: Criar uma nova creditnote com o valor indicado, caso seja possível
+                // Envia evento para o CreditBankMenuController para validar a referência.
                 APICreateCredinote?.Invoke( float.Parse(createCreditNoteValue_TextBox.Text));
                 
                 createCredit_button.Text = "Create credit";
@@ -57,24 +55,20 @@ namespace GrpcClientWindowsForms.Views
 
             }
 
-
-
         }
 
+
+        // Bloqueia o input da text box de ser caracteres, que não digitos.
         private void createCreditNoteValue_TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))//&& (e.KeyChar != '.')
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
-
-            //// only allow one decimal point
-            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            //{
-            //    e.Handled = true;
-            //}
         }
 
+        
+        // Popular a listView com as notas de crédito do utilizador atual (verde => Ainda não foram usados; vermelho => Já foram usados)
         internal void PopulateCreditNoteTable(List<CreditNote> creditNotes)
         {
             creditNotes_listView.Items.Clear();
@@ -94,6 +88,7 @@ namespace GrpcClientWindowsForms.Views
 
         }
 
+        // Método chamado após ser obtido da API e do servidor de jogo o utilizador com as respetivas notas de crédito. O pedido desta informação veio da chamada do evento no load desta view.
         internal void PopulateUserData(Account account)
         {
             username_label.Text = account.name;
@@ -106,6 +101,7 @@ namespace GrpcClientWindowsForms.Views
 
         }
 
+        // Método chamado após ser obtido da API todas as transações feitas em que o utilizador atual participou (Verde => lucro; Vermelho => Perda). O pedido desta informação veio da chamada do evento no load desta view.
         internal void PopulateHistoricTable(List<Transaction> transactions)
         {
             if (transactions == null)
@@ -130,9 +126,10 @@ namespace GrpcClientWindowsForms.Views
 
         }
 
-
+        // No caso da referencia for válida, depois de ser criada a transação, este método é chamado, de forma a atualizar o montante e a ListView das notas de crédito. Recebe como parâmetro a nota de credito criada (vinda da API).
         internal void AddCreditNoteRowToTable(CreditNote creditNote)
         {
+            // Determina o número (digitos) na label com o valor do montante total do utilizador e subtrai-lhe o valor da nota de crédito criada.
             string numberString = new String(amount_value_lable.Text.ToString().Where(Char.IsDigit).ToArray());
             int number = int.Parse(numberString) - Convert.ToInt32(creditNote.amount);
             amount_value_lable.Text = number + " créditos";
@@ -149,6 +146,7 @@ namespace GrpcClientWindowsForms.Views
 
         }
 
+        // Evento chamado sempre que for selecionada uma row da lista.
         private void creditNotes_listView_KeyUp(object sender, KeyEventArgs e)
         {
             if (sender != creditNotes_listView) return;
@@ -157,6 +155,7 @@ namespace GrpcClientWindowsForms.Views
                 CopySelectedValuesToClipboard();
         }
 
+        // Copia a referência da row da listView atualmente selecionada.
         private void CopySelectedValuesToClipboard()
         {
             var builder = new StringBuilder();
@@ -169,6 +168,7 @@ namespace GrpcClientWindowsForms.Views
             Clipboard.SetText(builder.ToString());
         }
 
+        // Método chamado pelo CreditBankController quando for recebida da API a infromação de que não foi possível criar a nota de crédito com aquele valor.
         internal void UnableToCreateCreditNote()
         {
             errorMessage_label.Text = "Unable to create a credit note!";
