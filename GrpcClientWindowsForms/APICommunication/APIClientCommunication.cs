@@ -11,32 +11,24 @@ using System.Threading.Tasks;
 
 namespace GrpcServerRPS.APICommunication
 {
-    // Gere a comunicação com o servidor e com a API.
+    // Estabelece a comunicação entre o cliente e a API.
     public abstract class APIClientCommunication
     {
-
         private static string BASE_URL = "http://localhost:8080/api/";
         private static HttpClient client = new HttpClient();
 
-
-
-        // Testado -> Funciona
+        // Obter uma conta (juntamente com as suas notas de crédito), a partir do id de sessão do utilizador desejado.
         public async static Task<Account> GetUserBySessionId(string sessionId)
         {
-            var responseUser = client.GetStreamAsync(BASE_URL + "accounts/session/" + sessionId ); // TODO: Get all the information of the user by user session id 
+            var responseUser = client.GetStreamAsync(BASE_URL + "accounts/session/" + sessionId );
             //responseUser.EnsureSuccessStatusCode();
 
-            //string apiResponseUser = await responseUser.Content.ReadAsStringAsync();
             var a = await JsonSerializer.DeserializeAsync<ResponseAccountGetBySessionId>(await responseUser);
 
-            
-
-
             return a.data;
-
         }
 
-
+        // Não utilizado: Obter todas as notas de crédito a partir de um id de sessão.
         public async static Task<List<CreditNote>> GetCreditNotesBySessionId(string sessionId)
         {
 
@@ -48,40 +40,24 @@ namespace GrpcServerRPS.APICommunication
 
         }
 
+        // Obter todas as transações onde um utilizador referenciado por um id de sessão interveio.
         public async static Task<List<Transaction>> GetTransactionsBySessionId(string sessionId)
         {
-            
-            var response = client.GetStreamAsync(BASE_URL + "transactions/" + sessionId); // TODO: Get list of creditnotes by user id. Alterar o URL para o get das creditnotes do utilizador com o id outcome.UserId
-
-
+            var response = client.GetStreamAsync(BASE_URL + "transactions/" + sessionId);
             var a = await JsonSerializer.DeserializeAsync<ResponseTransactions>(await response);
-            
-            
             return a.data;
-
         }
 
-        // Testado -> Funciona
+        // Criar nota de crédito
         public async static Task<ResponseCreditNotePost> PostCreateCreditNote(float amount, string sessionId)
         {
-
-            // Criar credit note na API
-            //CreditNotePostRequest creditNotePostRequest = new CreditNotePostRequest
-            //{
-            //    amount = amount,
-            //    userId = sessionId
-            //};
-            //var myContent = JsonSerializer.Serialize(creditNotePostRequest);
-
-
             String json = "{\n\"sessionId\": \"" + sessionId + "\",\n\"amount\":" + amount + "\n}";
             var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes", stringContent); // TODO: Pedido para criar uma nova creditnote para o utilizador atual, com o valor x.
+            HttpResponseMessage response = await client.PostAsync(BASE_URL + "creditnotes", stringContent);
             //response.EnsureSuccessStatusCode();
             
             string apiResponse = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<ResponseCreditNotePost>(apiResponse);
-
         }
 
 
