@@ -12,6 +12,7 @@ namespace GrpcClientWindowsForms.Controllers
         // Channel e client usados para autenticação
         public static User.UserClient AuthClient { get; private set; }
 
+        // Tratamento dos eventos
         public AuthController()
         {
             Program.AuthView.GRPCStartRequest += StartGRPCConnection;
@@ -20,15 +21,19 @@ namespace GrpcClientWindowsForms.Controllers
             Program.AuthView.GRPCGetGames += AuthView_GRPCGetGames;
         }
 
+        // Pedido ao servidor do número atual de jogos do utilziador, portador do id de sessão atual, que será passado como parametro.
         private void AuthView_GRPCGetGames()
         {
+            // Modelo com as informações do pedido para o servidor tratar.
             UserGetGamesBySessionIdLookupModel req = new UserGetGamesBySessionIdLookupModel
             {
                 SessionID = Program.AuthUser.SessionID
             };
 
+            // Comunicação de forma sincrona com o servidor.
             UserGetGamesBySessionIdModel outcome = AuthClient.GetGamesBySessionId(req);
 
+            // No caso de ser válido, o número de jogos é atualizado na view através da chamado do método SetGames da AuthView.
             if (outcome.Games != -1)
             {
                 Program.AuthView.SetGames(outcome.Games);
@@ -48,12 +53,14 @@ namespace GrpcClientWindowsForms.Controllers
             // Tenta autenticar o utilizador
             try
             {
+                // Modelo com as informações do pedido para o servidor tratar.
                 UserLoginLookupModel logReq = new UserLoginLookupModel
                 {
                     Username = username,
                     Password = password
                 };
 
+                // Comunicação de forma sincrona com o servidor. Esta comunicação foi feita de forma sincrona devido ao facto de, de alguma forma, o método login ser chamado duas vezes. Este facto levava a inconsistência no serviço de créditos, uma vez que cada vez que é executada uma ação de login, o id de sessão é atualizado. Se este método forsse chamado de forma asincrona, muitas das vezes não seria possível comunicar com o servidor de créditos porque poderia acontecer o caso em que o servidor de jogo tinham um id de sessão e o servido de créditos outro.
                 UserLoginModel outcome = AuthClient.Login(logReq);
 
                 // No caso de autenticação falhar, é enviada a mensagem de erro ao utilizador
@@ -110,13 +117,14 @@ namespace GrpcClientWindowsForms.Controllers
             int validRegistration;
             try
             {
+                // Modelo com as informações do pedido para o servidor tratar.
                 UserRegistLookupModel registerRequest = new UserRegistLookupModel
                 {
                     Username = username,
                     Email = email,
                     Password = password
                 };
-
+                // Comunicação de forma sincrona com o servidor. Esta comunicação é feita de forma sicrona devido ao mesmo facto do login.
                 var outcome = AuthClient.Regist(registerRequest);
                 validRegistration = outcome.Valid;
             }
