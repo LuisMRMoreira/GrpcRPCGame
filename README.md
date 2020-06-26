@@ -49,4 +49,8 @@ Para testar a API foi utilizada a pataforma [Postman](https://www.postman.com/).
 - Por fim, a view de jogo, terá o histórico de jogos, assim como o número de jogos que o utilizador pode jogar e as opções de jogo. No caso do utilizador já não ter mais jogos disponíveis, ser-lhe-á apresentada uma mensagem. No caso do utilizador vencer um jogo contra o servidor, este último irá transferir um valor em créditos (atualmente 1 crédito) para a conta do utilizador que o superou.
 
 
-Devido ao facto de a base de dados da API ser online e a base de dados do servidor de jogo ser local, pode haver uma inconsistência de dados. Para se ter 100% a certeza que tudo corre bem, deve-se limpar todas as entradas na base de dados online sempre que se pretender criar uma nova conta. Uma opção melhor seria colocar a base de dados da API localmente.
+**importante:** Devido ao facto de a base de dados da API ser online e a base de dados do servidor de jogo ser local, pode haver uma inconsistência de dados. Para se ter 100% a certeza que tudo corre bem, deve-se limpar todas as entradas na base de dados online sempre que se pretender criar uma nova conta. Uma opção melhor seria colocar a base de dados da API localmente.
+
+**importante:** Verificar se a base de dados do servidor de jogo está atualizada.
+
+A API referente ao serviço de créditos, foi desenvolvida em Nodejs (sendo a base de dados implementada de forma não relacional - MongoDb) e encontra-se [neste repositório](https://github.com/DanielGuedes147/Sistemas-Distribuidos-API).
