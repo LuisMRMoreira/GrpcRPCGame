@@ -37,15 +37,16 @@ namespace GrpcClientWindowsForms.Views
             if (createCredit_button.Text == "Confirm")
             {
                 // Envia evento para o CreditBankMenuController para validar a referência.
-                APICreateCredinote?.Invoke( float.Parse(createCreditNoteValue_TextBox.Text));
-                
+                APICreateCredinote?.Invoke(float.Parse(createCreditNoteValue_TextBox.Text));
+
                 createCredit_button.Text = "Create credit";
                 CreateCreditnote_label.Visible = false;
                 createCreditNoteValue_TextBox.Visible = false;
                 errorMessage_label.Visible = false;
 
             }
-            else {
+            else
+            {
 
                 createCredit_button.Text = "Confirm";
 
@@ -54,7 +55,6 @@ namespace GrpcClientWindowsForms.Views
                 errorMessage_label.Visible = false;
 
             }
-
         }
 
 
@@ -176,6 +176,12 @@ namespace GrpcClientWindowsForms.Views
             CreateCreditnote_label.Visible = true;
             createCreditNoteValue_TextBox.Visible = true;
             errorMessage_label.Visible = true;
+        }
+
+        private void EndSession_button_Click(object sender, EventArgs e)
+        {
+            Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }

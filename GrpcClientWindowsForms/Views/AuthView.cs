@@ -46,13 +46,13 @@ namespace GrpcClientWindowsForms.Views
             if (games == 0)
             {
                 games_label.Visible = true;
-                games_label.Text = "You don't have any game, please by some to play.";
+                games_label.Text = "You don't have any game,\n please buy some to play.";
                 play_button.Enabled = false;
                 play_button.Enabled = false;
             }
             else
             {
-                games_label.Text = "You have " + games + " left to play.";
+                games_label.Text = "You have " + games + " games\n left to play.";
                 play_button.Enabled = true;
                 games_label.Visible = true;
                 play_button.Enabled = true;

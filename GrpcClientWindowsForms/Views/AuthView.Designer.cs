@@ -45,7 +45,7 @@
             // 
             // buttonRegister
             // 
-            this.buttonRegister.Location = new System.Drawing.Point(25, 195);
+            this.buttonRegister.Location = new System.Drawing.Point(136, 195);
             this.buttonRegister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(118, 49);
@@ -56,7 +56,7 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(173, 195);
+            this.buttonLogin.Location = new System.Drawing.Point(294, 195);
             this.buttonLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(118, 49);
@@ -74,7 +74,7 @@
             // 
             // buyGames_button
             // 
-            this.buyGames_button.Location = new System.Drawing.Point(22, 193);
+            this.buyGames_button.Location = new System.Drawing.Point(73, 193);
             this.buyGames_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buyGames_button.Name = "buyGames_button";
             this.buyGames_button.Size = new System.Drawing.Size(118, 49);
@@ -87,7 +87,7 @@
             // labelWelcome
             // 
             this.labelWelcome.AutoSize = true;
-            this.labelWelcome.Location = new System.Drawing.Point(201, 55);
+            this.labelWelcome.Location = new System.Drawing.Point(252, 55);
             this.labelWelcome.Name = "labelWelcome";
             this.labelWelcome.Size = new System.Drawing.Size(57, 15);
             this.labelWelcome.TabIndex = 1;
@@ -96,7 +96,7 @@
             // textboxWelcome
             // 
             this.textboxWelcome.Enabled = false;
-            this.textboxWelcome.Location = new System.Drawing.Point(153, 83);
+            this.textboxWelcome.Location = new System.Drawing.Point(204, 83);
             this.textboxWelcome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textboxWelcome.Name = "textboxWelcome";
             this.textboxWelcome.Size = new System.Drawing.Size(159, 23);
@@ -105,7 +105,7 @@
             // labelOutcome
             // 
             this.labelOutcome.AutoSize = true;
-            this.labelOutcome.Location = new System.Drawing.Point(212, 120);
+            this.labelOutcome.Location = new System.Drawing.Point(263, 120);
             this.labelOutcome.Name = "labelOutcome";
             this.labelOutcome.Size = new System.Drawing.Size(0, 15);
             this.labelOutcome.TabIndex = 3;
@@ -113,7 +113,7 @@
             // 
             // Button_gotoCreditBank
             // 
-            this.Button_gotoCreditBank.Location = new System.Drawing.Point(170, 193);
+            this.Button_gotoCreditBank.Location = new System.Drawing.Point(221, 193);
             this.Button_gotoCreditBank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Button_gotoCreditBank.Name = "Button_gotoCreditBank";
             this.Button_gotoCreditBank.Size = new System.Drawing.Size(118, 49);
@@ -125,7 +125,7 @@
             // 
             // reference_textBox
             // 
-            this.reference_textBox.Location = new System.Drawing.Point(154, 149);
+            this.reference_textBox.Location = new System.Drawing.Point(205, 149);
             this.reference_textBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reference_textBox.Name = "reference_textBox";
             this.reference_textBox.Size = new System.Drawing.Size(159, 23);
@@ -137,11 +137,11 @@
             // 
             this.insertReference_label.AutoSize = true;
             this.insertReference_label.ForeColor = System.Drawing.Color.Maroon;
-            this.insertReference_label.Location = new System.Drawing.Point(56, 124);
+            this.insertReference_label.Location = new System.Drawing.Point(136, 132);
             this.insertReference_label.Name = "insertReference_label";
-            this.insertReference_label.Size = new System.Drawing.Size(359, 15);
+            this.insertReference_label.Size = new System.Drawing.Size(343, 15);
             this.insertReference_label.TabIndex = 1;
-            this.insertReference_label.Text = "In order to play, please, isnert a valid reference (amount: 20 credits)";
+            this.insertReference_label.Text = "To buy games, please isnert a valid reference (1 credit = 1 game)";
             this.insertReference_label.Visible = false;
             // 
             // invalidReference_label
@@ -160,16 +160,16 @@
             this.games_label.AutoSize = true;
             this.games_label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.games_label.ForeColor = System.Drawing.Color.Black;
-            this.games_label.Location = new System.Drawing.Point(342, 11);
+            this.games_label.Location = new System.Drawing.Point(341, 11);
             this.games_label.Name = "games_label";
-            this.games_label.Size = new System.Drawing.Size(296, 21);
+            this.games_label.Size = new System.Drawing.Size(313, 21);
             this.games_label.TabIndex = 1;
-            this.games_label.Text = "Unable to get total number of games.";
+            this.games_label.Text = "Unable to get total\\n number of games.";
             this.games_label.Visible = false;
             // 
             // play_button
             // 
-            this.play_button.Location = new System.Drawing.Point(331, 195);
+            this.play_button.Location = new System.Drawing.Point(382, 195);
             this.play_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.play_button.Name = "play_button";
             this.play_button.Size = new System.Drawing.Size(118, 49);
@@ -183,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(505, 255);
+            this.ClientSize = new System.Drawing.Size(581, 255);
             this.Controls.Add(this.play_button);
             this.Controls.Add(this.games_label);
             this.Controls.Add(this.invalidReference_label);

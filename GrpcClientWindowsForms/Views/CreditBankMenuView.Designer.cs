@@ -43,6 +43,7 @@
             this.CreateCreditnote_label = new System.Windows.Forms.Label();
             this.errorMessage_label = new System.Windows.Forms.Label();
             this.historic_listView = new System.Windows.Forms.ListView();
+            this.FromcolumnHeader = new System.Windows.Forms.ColumnHeader();
             this.amountColumn = new System.Windows.Forms.ColumnHeader("(none)");
             this.DateColumn = new System.Windows.Forms.ColumnHeader();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
@@ -54,7 +55,6 @@
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.expirationDateColumn = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            this.FromcolumnHeader = new System.Windows.Forms.ColumnHeader();
             ToReferenceColumn = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
@@ -178,7 +178,7 @@
             this.EndSession_button.TabIndex = 0;
             this.EndSession_button.Text = "End session";
             this.EndSession_button.UseVisualStyleBackColor = false;
-            this.EndSession_button.Click += new System.EventHandler(this.createCredit_button_Click);
+            this.EndSession_button.Click += new System.EventHandler(this.EndSession_button_Click);
             // 
             // createCreditNoteValue_TextBox
             // 
@@ -230,6 +230,12 @@
             this.historic_listView.UseCompatibleStateImageBehavior = false;
             this.historic_listView.View = System.Windows.Forms.View.Details;
             // 
+            // FromcolumnHeader
+            // 
+            this.FromcolumnHeader.Name = "FromcolumnHeader";
+            this.FromcolumnHeader.Text = "From";
+            this.FromcolumnHeader.Width = 110;
+            // 
             // amountColumn
             // 
             this.amountColumn.Name = "amountColumn";
@@ -262,7 +268,7 @@
             this.creditNotes_listView.HideSelection = false;
             this.creditNotes_listView.Location = new System.Drawing.Point(446, 164);
             this.creditNotes_listView.Name = "creditNotes_listView";
-            this.creditNotes_listView.Size = new System.Drawing.Size(276, 255);
+            this.creditNotes_listView.Size = new System.Drawing.Size(287, 255);
             this.creditNotes_listView.TabIndex = 6;
             this.creditNotes_listView.UseCompatibleStateImageBehavior = false;
             this.creditNotes_listView.View = System.Windows.Forms.View.Details;
@@ -284,12 +290,6 @@
             this.expirationDateColumn.Name = "expirationDateColumn";
             this.expirationDateColumn.Text = "Expiration";
             this.expirationDateColumn.Width = 100;
-            // 
-            // FromcolumnHeader
-            // 
-            this.FromcolumnHeader.Name = "FromcolumnHeader";
-            this.FromcolumnHeader.Text = "From";
-            this.FromcolumnHeader.Width = 110;
             // 
             // CreditBankMenuView
             // 
