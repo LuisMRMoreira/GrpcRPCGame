@@ -132,6 +132,15 @@ namespace GrpcClientWindowsForms.Views
         private void PlayView_VisibleChanged(object sender, EventArgs e)
         {
             unableToPlay_label.Visible = false;
+
+            // No caso do utilziador estar autenticado.
+            if (Program.AuthUser != null)
+            {
+                // Obter o número total de jogos do utilizador
+                GRPCStartRequest?.Invoke();
+
+            }
+
         }
     }
 }

@@ -2,7 +2,9 @@
 using GrpcServerRPS;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace GrpcClientWindowsForms.Controllers
@@ -24,20 +26,31 @@ namespace GrpcClientWindowsForms.Controllers
         // Pedido ao servidor do número atual de jogos do utilziador, portador do id de sessão atual, que será passado como parametro.
         private void AuthView_GRPCGetGames()
         {
-            // Modelo com as informações do pedido para o servidor tratar.
-            UserGetGamesBySessionIdLookupModel req = new UserGetGamesBySessionIdLookupModel
-            {
-                SessionID = Program.AuthUser.SessionID
-            };
 
-            // Comunicação de forma sincrona com o servidor.
-            UserGetGamesBySessionIdModel outcome = AuthClient.GetGamesBySessionId(req);
-
-            // No caso de ser válido, o número de jogos é atualizado na view através da chamado do método SetGames da AuthView.
-            if (outcome.Games != -1)
+            try
             {
-                Program.AuthView.SetGames(outcome.Games);
+                // Modelo com as informações do pedido para o servidor tratar.
+                UserGetGamesBySessionIdLookupModel req = new UserGetGamesBySessionIdLookupModel
+                {
+                    SessionID = Program.AuthUser.SessionID
+                };
+
+                // Comunicação de forma sincrona com o servidor.
+                UserGetGamesBySessionIdModel outcome = AuthClient.GetGamesBySessionId(req);
+
+                // No caso de ser válido, o número de jogos é atualizado na view através da chamado do método SetGames da AuthView.
+                if (outcome.Games != -1)
+                {
+                    Program.AuthView.SetGames(outcome.Games);
+                }
             }
+            catch (Grpc.Core.RpcException)
+            {
+                Program.ConnectController.ConnectionError();
+                return;
+            }
+
+
         }
 
         // Método usado para enviar um pedido para o servidor GRPC com o intuito de autenticar um utilizador
@@ -77,6 +90,21 @@ namespace GrpcClientWindowsForms.Controllers
             catch (Grpc.Core.RpcException)
             {
                 Program.ConnectController.ConnectionError();
+                return;
+            }
+            catch (JsonException jsonEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to login in the API due to json parse exception:\n" + jsonEx + "\nAuthController: LoginView_LoginRequest");
+                return;
+            }
+            catch (ArgumentNullException nullEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to login in the API due to null exception:\n" + nullEx + "\nAuthController: LoginView_LoginRequest");
+                return;
+            }
+            catch (HttpRequestException httpEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to login in the API due to Http request exception:\n" + httpEx + "\nAuthController: LoginView_LoginRequest");
                 return;
             }
 
@@ -134,6 +162,22 @@ namespace GrpcClientWindowsForms.Controllers
                 Program.ConnectController.ConnectionError();
                 return;
             }
+            catch (JsonException jsonEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to regist in the API due to json parse exception:\n" + jsonEx + "\nAuthController: Register");
+                return;
+            }
+            catch (ArgumentNullException nullEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to regit in the API due to null exception:\n" + nullEx + "\nAuthController: Register");
+                return;
+            }
+            catch (HttpRequestException httpEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to regist in the API due to Http request exception:\n" + httpEx + "\nAuthController: Register");
+                return;
+            }
+
 
             switch (validRegistration)
             {

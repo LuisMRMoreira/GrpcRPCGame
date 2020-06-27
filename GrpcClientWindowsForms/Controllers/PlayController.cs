@@ -3,7 +3,9 @@ using GrpcClientWindowsForms.Views;
 using GrpcServerRPS;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 
 namespace GrpcClientWindowsForms.Controllers
 {
@@ -44,6 +46,8 @@ namespace GrpcClientWindowsForms.Controllers
                 Program.ConnectController.ConnectionError();
                 return;
             }
+            
+
 
 
             // Se o número de jogados for -1 significa que o utilizador com o ID de sessão não existe no servidor
@@ -92,6 +96,21 @@ namespace GrpcClientWindowsForms.Controllers
             {
                 Program.PlayView.ResetAndHide();
                 Program.ConnectController.ConnectionError();
+                return;
+            }
+            catch (JsonException jsonEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to play due to json parse exception:\n" + jsonEx + "\nPlayController: Play");
+                return;
+            }
+            catch (ArgumentNullException nullEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to play due to null exception:\n" + nullEx + "\nPlayController: Play");
+                return;
+            }
+            catch (HttpRequestException httpEx)
+            {
+                Program.CreditBankMenurView.ShowMessageBox("Unable to play due to Http request exception:\n" + httpEx + "\nPlayController: Play");
                 return;
             }
 

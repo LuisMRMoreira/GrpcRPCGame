@@ -88,6 +88,19 @@ namespace GrpcClientWindowsForms.Views
 
         }
 
+        internal void ShowMessageBox(string v)
+        {
+            string message = v;
+            string title = "Operation error";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Error);
+            if (result == DialogResult.OK)
+            {
+                this.Close();
+            }
+
+        }
+
         // Método chamado após ser obtido da API e do servidor de jogo o utilizador com as respetivas notas de crédito. O pedido desta informação veio da chamada do evento no load desta view.
         internal void PopulateUserData(Account account)
         {
