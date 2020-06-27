@@ -44,7 +44,9 @@ namespace GrpcServerRPS.APICommunication
         public async static Task<List<Transaction>> GetTransactionsBySessionId(string sessionId)
         {
             var response = client.GetStreamAsync(BASE_URL + "transactions/" + sessionId);
-            var a = await JsonSerializer.DeserializeAsync<ResponseTransactions>(await response);
+            
+
+            var a = await JsonSerializer.DeserializeAsync<ResponseTransactions>( await response);
             return a.data;
         }
 
