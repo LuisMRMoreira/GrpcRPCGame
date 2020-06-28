@@ -193,9 +193,10 @@ namespace GrpcServerRPS.Services
                     userId = user.Id
                 };
 
-                _context.History.Add(h);
-                _context.SaveChanges();
 
+
+                    _context.History.Add(h);
+                    _context.SaveChanges();
             }
 
             output.Draws = h.draw;

@@ -133,13 +133,13 @@ namespace GrpcClientWindowsForms.Views
         {
             unableToPlay_label.Visible = false;
 
-            // No caso do utilziador estar autenticado.
-            if (Program.AuthUser != null)
-            {
-                // Obter o número total de jogos do utilizador
-                GRPCStartRequest?.Invoke();
+            //// No caso do utilziador estar autenticado.
+            //if (Program.AuthUser != null)
+            //{
+            //    // Obter o número total de jogos do utilizador
+            //    GRPCStartRequest?.Invoke();
 
-            }
+            //}
 
         }
     }
